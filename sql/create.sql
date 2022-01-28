@@ -112,7 +112,7 @@ CREATE TABLE `content_like_user` (
 -- Table structure for `cotent_comment`
 -- ----------------------------
 DROP TABLE IF EXISTS `cotent_comment`;
-CREATE TABLE `cotent_comment` (
+CREATE TABLE `content_comment` (
   `content_comment_id` bigint NOT NULL,
   `content_id` bigint NOT NULL,
   `user_id` bigint NOT NULL,
