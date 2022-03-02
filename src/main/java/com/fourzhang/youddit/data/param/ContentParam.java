@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class ContentParam {
-    private Long content_id;
+  //  private Long content_id;
     private Long user_id;
     private String info_describe;
     private String label_id;
