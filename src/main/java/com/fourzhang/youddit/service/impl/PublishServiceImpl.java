@@ -61,6 +61,6 @@ public class PublishServiceImpl implements PublishService {
             contentLabelMapper.insert(cl);
         }
 
-        return null;
+        return new Result(content);
     }
 }
