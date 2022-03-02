@@ -5,5 +5,5 @@ import com.fourzhang.youddit.entity.ContentImage;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
-public interface CommentImageMapper extends BaseMapper<ContentImage> {
+public interface ContentImageMapper extends BaseMapper<ContentImage> {
 }
