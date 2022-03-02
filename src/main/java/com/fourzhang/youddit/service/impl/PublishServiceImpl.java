@@ -3,6 +3,7 @@ package com.fourzhang.youddit.service.impl;
 import com.fourzhang.youddit.data.Result;
 import com.fourzhang.youddit.data.param.ContentParam;
 import com.fourzhang.youddit.entity.Content;
+import com.fourzhang.youddit.entity.ContentImage;
 import com.fourzhang.youddit.entity.Image;
 import com.fourzhang.youddit.mapper.*;
 import com.fourzhang.youddit.service.PublishService;
@@ -44,7 +45,9 @@ public class PublishServiceImpl implements PublishService {
         image.setImageUrl(imgurl);
         imageMapper.insert(image);
 
-
+        ContentImage cig=new ContentImage();
+        cig.setContentId(content.getContentId());
+        cig.setImageId(image.getImageId());
 
         return null;
     }
