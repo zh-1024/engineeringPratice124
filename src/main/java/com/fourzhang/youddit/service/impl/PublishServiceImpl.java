@@ -4,6 +4,7 @@ import com.fourzhang.youddit.data.Result;
 import com.fourzhang.youddit.data.param.ContentParam;
 import com.fourzhang.youddit.entity.Content;
 import com.fourzhang.youddit.entity.ContentImage;
+import com.fourzhang.youddit.entity.ContentLabel;
 import com.fourzhang.youddit.entity.Image;
 import com.fourzhang.youddit.mapper.*;
 import com.fourzhang.youddit.service.PublishService;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 public class PublishServiceImpl implements PublishService {
@@ -32,7 +34,7 @@ public class PublishServiceImpl implements PublishService {
         long user_id=cm.getUser_id();
         String info_describe=cm.getInfo_describe();
         LocalDateTime time=LocalDateTime.now();
-
+        List<Long> labelids=cm.getLabel_id();
         Content content=new Content();
        // content.setContentId(content_id);
         content.setUserId(user_id);
@@ -40,14 +42,24 @@ public class PublishServiceImpl implements PublishService {
         content.setPostTime(time);
         contentMapper.insert(content);
 
-        String imgurl=cm.getImage_url();
-        Image image=new Image();
-        image.setImageUrl(imgurl);
-        imageMapper.insert(image);
+        List<String> imgurls=cm.getImage_url();
+        for(String imgurl:imgurls){
+            Image image=new Image();
+            image.setImageUrl(imgurl);
+            imageMapper.insert(image);
+            ContentImage cig=new ContentImage();
+            cig.setContentId(content.getContentId());
+            cig.setImageId(image.getImageId());
+            contentImageMapper.insert(cig);
+        }
 
-        ContentImage cig=new ContentImage();
-        cig.setContentId(content.getContentId());
-        cig.setImageId(image.getImageId());
+
+        for(long id:labelids){
+            ContentLabel cl=new ContentLabel();
+            cl.setContentId(content.getContentId());
+            cl.setLabelId(id);
+            contentLabelMapper.insert(cl);
+        }
 
         return null;
     }
