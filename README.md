@@ -4,7 +4,7 @@
 ```java
 public class Demo{
     public void test(){
-        System.out.println();
+        System.out.println("sds");
     }
 }
 ```
