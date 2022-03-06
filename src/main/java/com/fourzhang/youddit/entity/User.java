@@ -10,6 +10,9 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,6 +21,9 @@ import lombok.Data;
 
 @Data
 @TableName("user")
+@ToString
+@AllArgsConstructor
+@NoArgsConstructor
 public class User implements UserDetails {
     @TableId(type=IdType.ASSIGN_ID)
     private Long id;

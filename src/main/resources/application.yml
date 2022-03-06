@@ -1,8 +1,8 @@
 spring:
   datasource:
     username: root
-    password: leniy2013
-    url: jdbc:mysql://${MYSQL_HOST:localhost}:3306/youddit
+    password: 990913
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:3306/photo
     driver-class-name: com.mysql.cj.jdbc.Driver
 
 mybatis-plus:

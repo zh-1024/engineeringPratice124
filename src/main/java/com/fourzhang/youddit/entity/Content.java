@@ -4,8 +4,8 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
+import org.springframework.context.annotation.Configuration;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -20,6 +20,9 @@ import java.time.LocalDateTime;
  */
 @Getter
 @Setter
+@ToString
+@AllArgsConstructor
+@NoArgsConstructor
 public class Content implements Serializable {
 
     private static final long serialVersionUID = 1L;
