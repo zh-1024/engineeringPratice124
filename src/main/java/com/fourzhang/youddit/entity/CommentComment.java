@@ -34,10 +34,11 @@ public class CommentComment implements Serializable {
 
     private Long commentCommentId;
 
-    private String userId;
+    private Long userId;
 
     private LocalDateTime commentTime;
 
     private Integer level;
+    private String comment_info;
 
 }

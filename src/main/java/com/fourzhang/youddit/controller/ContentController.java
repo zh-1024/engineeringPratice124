@@ -1,7 +1,7 @@
 package com.fourzhang.youddit.controller;
 
 import com.fourzhang.youddit.data.Result;
-import com.fourzhang.youddit.data.param.ContentParam;
+import com.fourzhang.youddit.request.ContentParam;
 import com.fourzhang.youddit.service.DeleteContentService;
 import com.fourzhang.youddit.service.PublishService;
 import org.springframework.beans.factory.annotation.Autowired;

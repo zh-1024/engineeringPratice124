@@ -1,9 +1,8 @@
 package com.fourzhang.youddit.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.fourzhang.youddit.data.Result;
 import com.fourzhang.youddit.data.ResultTool;
-import com.fourzhang.youddit.data.param.ContentParam;
+import com.fourzhang.youddit.request.ContentParam;
 import com.fourzhang.youddit.entity.*;
 import com.fourzhang.youddit.mapper.*;
 import com.fourzhang.youddit.service.PublishService;
