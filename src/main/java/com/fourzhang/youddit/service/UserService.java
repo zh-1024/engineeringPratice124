@@ -39,4 +39,22 @@ public class UserService implements UserDetailsService {
             throw e;
 		}
 	}
+
+    public User findUserById(Long id) {
+        QueryWrapper<User> wrapper = new QueryWrapper<>();
+        wrapper.eq("id", id);
+
+        User user = userMapper.selectOne(wrapper);
+
+        return user;
+    }
+
+    public User findUserByName(String name) {
+        QueryWrapper<User> wrapper = new QueryWrapper<>();
+        wrapper.eq("username", name);
+
+        User user = userMapper.selectOne(wrapper);
+
+        return user;
+    }
 }
