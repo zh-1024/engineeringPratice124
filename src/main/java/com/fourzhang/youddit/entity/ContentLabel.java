@@ -4,8 +4,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.io.Serializable;
 
@@ -21,6 +20,9 @@ import java.io.Serializable;
 @Setter
 @TableName("content_label")
 @ApiModel(value = "ContentLabel对象", description = "")
+@ToString
+@AllArgsConstructor
+@NoArgsConstructor
 public class ContentLabel implements Serializable {
 
     private static final long serialVersionUID = 1L;

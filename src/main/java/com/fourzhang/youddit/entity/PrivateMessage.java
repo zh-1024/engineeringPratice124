@@ -4,8 +4,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -22,6 +21,9 @@ import java.time.LocalDateTime;
 @Setter
 @TableName("private_message")
 @ApiModel(value = "PrivateMessage对象", description = "")
+@ToString
+@AllArgsConstructor
+@NoArgsConstructor
 public class PrivateMessage implements Serializable {
 
     private static final long serialVersionUID = 1L;
