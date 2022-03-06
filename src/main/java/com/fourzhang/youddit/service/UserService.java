@@ -1,15 +1,26 @@
 package com.fourzhang.youddit.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+import com.fourzhang.youddit.data.Result;
+import com.fourzhang.youddit.data.ResultCode;
+import com.fourzhang.youddit.data.ResultTool;
 import com.fourzhang.youddit.entity.User;
 import com.fourzhang.youddit.mapper.UserMapper;
 
+import com.fourzhang.youddit.request.UserInformationRequest;
+import com.fourzhang.youddit.response.UserHomePageResponse;
+import com.fourzhang.youddit.response.UserInformationResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.security.Principal;
+import java.time.LocalDateTime;
 
 @Service
 public class UserService implements UserDetailsService {
@@ -56,5 +67,64 @@ public class UserService implements UserDetailsService {
         User user = userMapper.selectOne(wrapper);
 
         return user;
+    }
+
+    public Result getUserHomePage(Principal principal){
+        User user = findUserByName(principal.getName());
+        if (user == null) { return ResultTool.dataFail(ResultCode.COMMON_FAIL); }
+
+        UserHomePageResponse userHomePageResponse = new UserHomePageResponse(
+                user.getUsername(),
+                user.getAvatar(),
+                user.getFollowersNum(),
+                user.getFollowingNum(),
+                user.getProfile());
+
+        return ResultTool.success(userHomePageResponse);
+    }
+
+    public Result getOtherUserHomePage(String username){
+        User user = findUserByName(username);
+        if (user == null) { return ResultTool.dataFail(ResultCode.COMMON_FAIL); }
+
+        UserHomePageResponse userHomePageResponse = new UserHomePageResponse(
+                user.getUsername(),
+                user.getAvatar(),
+                user.getFollowersNum(),
+                user.getFollowingNum(),
+                user.getProfile());
+
+        return ResultTool.success(userHomePageResponse);
+    }
+
+    public Result getUserInformationPage(Principal principal){
+        User user = findUserByName(principal.getName());
+        if (user == null) { return ResultTool.dataFail(ResultCode.COMMON_FAIL); }
+
+        UserInformationResponse userInformationResponse = new UserInformationResponse(
+                user.getUsername(),
+                user.getAvatar(),
+                user.getProfile(),
+                user.getEmail(),
+                user.getPhone()
+        );
+
+        return ResultTool.success(userInformationResponse);
+    }
+
+    public Result changeUserInformation(UserInformationRequest userInformationRequest, Principal principal){
+        if(principal.getName().equals(userInformationRequest.getUsername())){
+            LambdaUpdateWrapper<User> userUpdateWrapper = new LambdaUpdateWrapper<>();
+            userUpdateWrapper.set(User::getEmail, userInformationRequest.getEmail());
+            userUpdateWrapper.set(User::getPhone, userInformationRequest.getPhone());
+            userUpdateWrapper.set(User::getAvatar, userInformationRequest.getAvatar());
+            userUpdateWrapper.set(User::getProfile, userInformationRequest.getProfile());
+            userUpdateWrapper.set(User::getUpdateTime, LocalDateTime.now());
+            userUpdateWrapper.eq(User::getUsername, principal.getName());
+            userMapper.update(null,userUpdateWrapper);
+        }else{
+            return ResultTool.fail(ResultCode.USER_NO_PERMISSION);
+        }
+        return ResultTool.success();
     }
 }
