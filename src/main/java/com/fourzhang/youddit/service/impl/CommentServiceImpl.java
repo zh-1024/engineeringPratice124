@@ -2,21 +2,23 @@ package com.fourzhang.youddit.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.fourzhang.youddit.data.Result;
 import com.fourzhang.youddit.data.ResultTool;
 import com.fourzhang.youddit.entity.CommentComment;
+import com.fourzhang.youddit.entity.ContentComment;
 import com.fourzhang.youddit.entity.User;
 import com.fourzhang.youddit.mapper.CommentCommentMapper;
 import com.fourzhang.youddit.mapper.ContentCommentMapper;
 import com.fourzhang.youddit.mapper.UserMapper;
 import com.fourzhang.youddit.request.CommentRequest;
 import com.fourzhang.youddit.service.CommentService;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 public class CommentServiceImpl implements CommentService {
@@ -48,5 +50,27 @@ public class CommentServiceImpl implements CommentService {
         }
         commentCommentMapper.insert(commentComment);
         return ResultTool.success(commentComment);
+    }
+
+    @Override
+    public List<ContentComment> loadContentComment(Long contentId, Integer from, Integer num) {
+        QueryWrapper<ContentComment> wrapper = new QueryWrapper<>();
+        wrapper.eq("content_id", contentId);
+
+        Page<ContentComment> page = new Page<>(from, num);
+        Page<ContentComment> res = contentCommentMapper.selectPage(page, wrapper);
+
+        return res.getRecords();
+    }
+
+    @Override
+    public List<CommentComment> loadCommentComment(Long commentId, Integer from, Integer num) {
+        QueryWrapper<CommentComment> wrapper = new QueryWrapper<>();
+        wrapper.eq("content_comment_id", commentId);
+
+        Page<CommentComment> page = new Page<>(from, num);
+        Page<CommentComment> res = commentCommentMapper.selectPage(page, wrapper);
+
+        return res.getRecords();
     }
 }

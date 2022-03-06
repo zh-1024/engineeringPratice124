@@ -41,14 +41,15 @@ public class UserService implements UserDetailsService {
         return userMapper.selectOne(wrapper);
     }
 
-    public void signUp(User user) throws Exception {
+    public boolean signUp(User user) {
 		try {
 			user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
             userMapper.insert(user);
 		}catch (Exception e) {
             System.out.println(e.getMessage());
-            throw e;
+            return false;
 		}
+        return true;
 	}
 
     public User findUserById(Long id) {
@@ -68,6 +69,21 @@ public class UserService implements UserDetailsService {
 
         return user;
     }
+
+    public boolean reset(String username, String password) {
+        try {
+            UpdateWrapper<User> wrapper = new UpdateWrapper<>();
+            wrapper.eq("username", username).set("password", bCryptPasswordEncoder.encode(password));
+
+            userMapper.update(null, wrapper);
+
+        } catch (Exception e) {
+            return false;
+        }
+
+        return true;
+    }
+
 
     public Result getUserHomePage(Principal principal){
         User user = findUserByName(principal.getName());
