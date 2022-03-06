@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fourzhang.youddit.mapper.ContentLabelMapper">
+    <select id="selectContentsByLabel" resultType="com.fourzhang.youddit.entity.Content">
+        select * from content where content_id in
+            (select content_id from content_label where label_id=#{labelId})
+            ORDER BY views_num DESC,like_num DESC,collect_num DESC
+    </select>
+</mapper>
