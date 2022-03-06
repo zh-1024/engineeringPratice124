@@ -1,11 +1,9 @@
 package com.fourzhang.youddit.controller;
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.fourzhang.youddit.data.Result;
 import com.fourzhang.youddit.data.ResultCode;
 import com.fourzhang.youddit.data.ResultTool;
 import com.fourzhang.youddit.entity.User;
-import com.fourzhang.youddit.request.PageRange;
 import com.fourzhang.youddit.request.SignUpRequest;
 import com.fourzhang.youddit.request.UserInformationRequest;
 import com.fourzhang.youddit.service.UserService;
@@ -61,24 +59,5 @@ public class UserController {
         return userService.changeUserInformation(userInformationRequest, principal);
     }
 
-    @PostMapping(path = "/api/user/following")
-    public Result getFollowingList(@RequestBody PageRange range ,Principal principal){
-        User user = userService.findUserByName(principal.getName());
-        if (user == null) { return ResultTool.dataFail(ResultCode.COMMON_FAIL); }
-        return userService.getFollowingList(user.getId(),
-                range.getFrom(),
-                range.getNum());
-    }
-
-    //查看别人的关注列表
-    @PostMapping(path = "/api/user/visit/following/{username}")
-    public Result getOtherUserFollowingList(@RequestBody PageRange range ,
-                                            @PathVariable(name = "username") String username){
-        User user = userService.findUserByName(username);
-        if (user == null) { return ResultTool.dataFail(ResultCode.COMMON_FAIL); }
-        return userService.getFollowingList(user.getId(),
-                range.getFrom(),
-                range.getNum());
-    }
 
 }

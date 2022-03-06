@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.fourzhang.youddit.entity.Content;
 import com.fourzhang.youddit.mapper.ContentLabelMapper;
 import com.fourzhang.youddit.mapper.ContentMapper;
+import com.fourzhang.youddit.mapper.ImageMapper;
 import com.fourzhang.youddit.mapper.UserMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,5 +75,13 @@ public class PagesTest {
         System.out.println(page1.getTotal());//总记录数
         System.out.println(page1.hasNext());//是否有下一页
         System.out.println(page1.hasPrevious());//是否有上一页
+    }
+
+    @Autowired
+    private ImageMapper imageMapper;
+    @Test
+    public void getImages(){
+        List<String> images = imageMapper.getImageByContentId(1L);
+        System.out.println(images);
     }
 }
