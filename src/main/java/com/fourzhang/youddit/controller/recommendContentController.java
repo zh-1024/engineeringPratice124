@@ -26,11 +26,16 @@ public class recommendContentController {
     @Autowired
     RecommendContentServiceImpl recommendContentService;
 
-    @GetMapping("/getContents")
-    public Result<ContentResponse> getContents(@RequestParam(required = true,value = "labelId")long labelId,
+    @GetMapping("/getContentsByLabel")
+    public Result<ContentResponse> getContentsByLabel(@RequestParam(required = true,value = "labelId")long labelId,
                                                @RequestParam(required = true,value = "currentPage")long currentPage,
                                                @RequestParam(required = true,value = "pageSize")long pageSize){
-        return recommendContentService.getContents(labelId, currentPage, pageSize);
+        return recommendContentService.getContentsByLabel(labelId, currentPage, pageSize);
+    }
+    @GetMapping("/getContents")
+    public Result<ContentResponse> getContents(@RequestParam(required = true,value = "currentPage")long currentPage,
+                                               @RequestParam(required = true,value = "pageSize")long pageSize){
+        return recommendContentService.getContentsAll(currentPage,pageSize);
     }
     @GetMapping("/getLabels")
     public Result<LabelResponse> getLabels(@RequestParam(required = true,value = "currentPage")long currentPage,

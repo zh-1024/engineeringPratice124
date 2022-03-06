@@ -7,7 +7,8 @@ import com.fourzhang.youddit.response.LabelResponse;
 import java.util.List;
 
 public interface RecommendContentService {
-    public Result<ContentResponse> getContents(Long labelId,Long currentPage,Long pageSize);
+    public Result<ContentResponse> getContentsByLabel(Long labelId,Long currentPage,Long pageSize);
+    public Result<ContentResponse> getContentsAll(Long currentPage,Long pageSize);
     public Result<LabelResponse>  getLabels(Long currentPage,Long pageSize);
     public Result<List<String>>  getImagesByContentId(Long contentId);
 }
