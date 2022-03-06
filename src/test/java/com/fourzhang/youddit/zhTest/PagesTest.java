@@ -3,12 +3,14 @@ package com.fourzhang.youddit.zhTest;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.fourzhang.youddit.entity.Content;
+import com.fourzhang.youddit.mapper.ContentLabelMapper;
 import com.fourzhang.youddit.mapper.ContentMapper;
 import com.fourzhang.youddit.mapper.UserMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -21,7 +23,14 @@ import java.util.List;
 public class PagesTest {
     @Autowired
     private ContentMapper contentMapper;
-
+    @Autowired
+    private ContentLabelMapper contentLabelMapper;
+    @Test
+    public void testSelectContentsByLabelId(){
+        Page<Content> page = new Page<>(1,2);
+        Page<Content> page1 = contentLabelMapper.selectContentsByLabel(page, 0L);
+        System.out.println(new ArrayList<>(page1.getRecords()));
+    }
     @Test
     public  void testSelectList(){
         List<Content> contents = contentMapper.selectList(null);
