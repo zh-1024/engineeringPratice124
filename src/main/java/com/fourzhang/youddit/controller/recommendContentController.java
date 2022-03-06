@@ -2,6 +2,7 @@ package com.fourzhang.youddit.controller;
 
 import com.fourzhang.youddit.data.Result;
 import com.fourzhang.youddit.response.ContentResponse;
+import com.fourzhang.youddit.response.LabelResponse;
 import com.fourzhang.youddit.service.RecommendContentService;
 import com.fourzhang.youddit.service.impl.RecommendContentServiceImpl;
 import org.apache.ibatis.annotations.Param;
@@ -29,5 +30,10 @@ public class recommendContentController {
                                                @RequestParam(required = true,value = "currentPage")long currentPage,
                                                @RequestParam(required = true,value = "pageSize")long pageSize){
         return recommendContentService.getContents(labelId, currentPage, pageSize);
+    }
+    @GetMapping("/getLabels")
+    public Result<LabelResponse> getLabels(@RequestParam(required = true,value = "currentPage")long currentPage,
+                                           @RequestParam(required = true,value = "pageSize")long pageSize){
+        return recommendContentService.getLabels(currentPage, pageSize);
     }
 }
