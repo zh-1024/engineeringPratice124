@@ -2,10 +2,7 @@ package com.fourzhang.youddit.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
-import io.swagger.annotations.ApiModel;
 import lombok.*;
-import org.springframework.context.annotation.Configuration;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
