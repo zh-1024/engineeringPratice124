@@ -8,6 +8,7 @@ import com.fourzhang.youddit.mapper.UserMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.core.context.ListeningSecurityContextHolderStrategy;
 
 import java.util.List;
 
@@ -21,6 +22,12 @@ import java.util.List;
 public class PagesTest {
     @Autowired
     private ContentMapper contentMapper;
+
+    @Test
+    public void mapperXmlTest() {
+        List<Content> contents = contentMapper.findSubscribeContents(1L);
+        System.out.println(contents.size());
+    }
 
     @Test
     public  void testSelectList(){

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fourzhang.youddit.mapper.ContentMapper">
+
+  <select id="findSubscribeContents"
+    resultType="com.fourzhang.youddit.entity.Content">
+    select * from content where user_id in
+      (select user2_id from follow where user1_id = #{id}) 
+      order by post_time desc
+  </select>
+</mapper>
