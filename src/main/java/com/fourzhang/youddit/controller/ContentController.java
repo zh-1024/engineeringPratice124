@@ -4,10 +4,7 @@ import com.fourzhang.youddit.data.Result;
 import com.fourzhang.youddit.data.param.ContentParam;
 import com.fourzhang.youddit.service.PublishService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("api/content")
@@ -17,5 +14,9 @@ public class ContentController {
     @PostMapping("publish")
     public Result publish(@RequestBody ContentParam contentParam){
         return publishService.publish(contentParam);
+    }
+    @PostMapping("delete/{content_id}")
+    public Result delete(@PathVariable long content_id){
+        return publishService.deletePub(content_id);
     }
 }

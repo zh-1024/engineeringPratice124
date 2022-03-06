@@ -23,7 +23,7 @@ public class Image implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @TableId(type = IdType.AUTO)
-    private Long imageId;
+    private Long id;
     private String imageUrl;
 
 

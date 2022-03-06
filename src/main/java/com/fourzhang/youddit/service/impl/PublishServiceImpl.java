@@ -1,11 +1,10 @@
 package com.fourzhang.youddit.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.fourzhang.youddit.data.Result;
+import com.fourzhang.youddit.data.ResultTool;
 import com.fourzhang.youddit.data.param.ContentParam;
-import com.fourzhang.youddit.entity.Content;
-import com.fourzhang.youddit.entity.ContentImage;
-import com.fourzhang.youddit.entity.ContentLabel;
-import com.fourzhang.youddit.entity.Image;
+import com.fourzhang.youddit.entity.*;
 import com.fourzhang.youddit.mapper.*;
 import com.fourzhang.youddit.service.PublishService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,11 +48,9 @@ public class PublishServiceImpl implements PublishService {
             imageMapper.insert(image);
             ContentImage cig=new ContentImage();
             cig.setContentId(content.getContentId());
-            cig.setImageId(image.getImageId());
+            cig.setImageId(image.getId());
             contentImageMapper.insert(cig);
         }
-
-
         for(long id:labelids){
             ContentLabel cl=new ContentLabel();
             cl.setContentId(content.getContentId());
@@ -61,6 +58,6 @@ public class PublishServiceImpl implements PublishService {
             contentLabelMapper.insert(cl);
         }
 
-        return new Result(content);
+        return ResultTool.success(null);
     }
 }
