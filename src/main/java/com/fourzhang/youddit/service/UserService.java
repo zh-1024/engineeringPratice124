@@ -155,9 +155,11 @@ public class UserService implements UserDetailsService {
     public Result getFollowingList(Long id, Integer from, Integer num){
         Page<User> page = new Page<>(from, num);
         Page<User> res = userMapper.findFollowingList(id, page);
+        return makeUserToNameWithImage(res);
+    }
 
+    public Result makeUserToNameWithImage(Page<User> res){
         NameWithImageListResponse response = new NameWithImageListResponse();
-
         List<User> userList = res.getRecords();
         List<NameWithImageResponse> resList = new ArrayList<>();
         for(User e : userList){
@@ -176,4 +178,9 @@ public class UserService implements UserDetailsService {
         return ResultTool.success(response);
     }
 
+    public Result getFollowersList(Long id, Integer from, Integer num){
+        Page<User> page = new Page<>(from, num);
+        Page<User> res = userMapper.findFollowersList(id, page);
+        return makeUserToNameWithImage(res);
+    }
 }

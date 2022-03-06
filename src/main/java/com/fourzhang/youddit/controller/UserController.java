@@ -77,4 +77,13 @@ public class UserController {
 
         return userService.getFollowingList(user.getId(), range.getFrom(), range.getNum());
     }
+
+    @PostMapping(path = "/api/user/followers")
+    public Result getFollowersList(@RequestBody PageRange range ,Principal principal){
+        User user = userService.findUserByName(principal.getName());
+        if (user == null) { return ResultTool.dataFail(ResultCode.COMMON_FAIL); }
+        return userService.getFollowersList(user.getId(),
+                range.getFrom(),
+                range.getNum());
+    }
 }
