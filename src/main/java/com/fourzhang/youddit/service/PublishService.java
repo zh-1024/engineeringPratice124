@@ -5,6 +5,4 @@ import com.fourzhang.youddit.request.ContentParam;
 
 public interface PublishService {
     Result publish(ContentParam contentParam);
-
-
 }

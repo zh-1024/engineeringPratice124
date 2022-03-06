@@ -8,7 +8,10 @@ public enum ResultCode {
 	USER_ACCOUNT_ALREADY_EXIST(2002, "user already exist"),
 	USER_CREDENTIALS_ERROR(2003, "wrong password"), 
 	USER_ACCOUNT_NOT_EXIST(2004, "no such user"),
-	USER_RESET_VERIFIY_FAIL(2005, "user verification failed");
+	USER_RESET_VERIFIY_FAIL(2005, "user verification failed"),
+
+	//sharkboom-用于用户非法尝试修改别人的个人信息报错
+	USER_NO_PERMISSION(2006, "user has no permission failed");
 	
 	private Integer code;
     private String msg;
