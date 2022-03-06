@@ -79,6 +79,5 @@ public class PagesTest {
         System.out.println(page1.getTotal());//总记录数
         System.out.println(page1.hasNext());//是否有下一页
         System.out.println(page1.hasPrevious());//是否有上一页
-
     }
 }
