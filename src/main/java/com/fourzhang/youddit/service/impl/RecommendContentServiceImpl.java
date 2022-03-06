@@ -6,12 +6,15 @@ import com.fourzhang.youddit.data.Result;
 import com.fourzhang.youddit.entity.Content;
 import com.fourzhang.youddit.entity.Label;
 import com.fourzhang.youddit.mapper.ContentLabelMapper;
+import com.fourzhang.youddit.mapper.ImageMapper;
 import com.fourzhang.youddit.mapper.LabelMapper;
 import com.fourzhang.youddit.response.ContentResponse;
 import com.fourzhang.youddit.response.LabelResponse;
 import com.fourzhang.youddit.service.RecommendContentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * TODO: 内容推荐相关逻辑业务处理
@@ -25,6 +28,8 @@ public class RecommendContentServiceImpl implements RecommendContentService {
     private ContentLabelMapper contentLabelMapper;
     @Autowired
     private LabelMapper labelMapper;
+    @Autowired
+    private ImageMapper imageMapper;
 
     /**
      * @author zh
@@ -76,5 +81,19 @@ public class RecommendContentServiceImpl implements RecommendContentService {
                 );
         Result<LabelResponse> responseResult=new Result<LabelResponse>(labelResponse);
         return responseResult;
+    }
+
+    /**
+     * @author zh
+     * TODO: 查找内容对应的图集
+     * @param contentId
+     * @date 2022/3/6 0006 18:41
+     * @return com.fourzhang.youddit.data.Result<java.util.List<java.lang.String>>
+     */
+    @Override
+    public Result<List<String>> getImagesByContentId(Long contentId) {
+        List<String> images = imageMapper.getImageByContentId(contentId);
+        Result<List<String>> result = new Result<>(images);
+        return result;
     }
 }

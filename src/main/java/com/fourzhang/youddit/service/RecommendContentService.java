@@ -4,7 +4,10 @@ import com.fourzhang.youddit.data.Result;
 import com.fourzhang.youddit.response.ContentResponse;
 import com.fourzhang.youddit.response.LabelResponse;
 
+import java.util.List;
+
 public interface RecommendContentService {
     public Result<ContentResponse> getContents(Long labelId,Long currentPage,Long pageSize);
     public Result<LabelResponse>  getLabels(Long currentPage,Long pageSize);
+    public Result<List<String>>  getImagesByContentId(Long contentId);
 }
