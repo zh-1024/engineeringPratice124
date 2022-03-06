@@ -1,7 +1,6 @@
 package com.fourzhang.youddit.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.fourzhang.youddit.data.Result;
 import com.fourzhang.youddit.data.ResultTool;
 import com.fourzhang.youddit.entity.CommentComment;
@@ -11,7 +10,6 @@ import com.fourzhang.youddit.mapper.ContentCommentMapper;
 import com.fourzhang.youddit.mapper.UserMapper;
 import com.fourzhang.youddit.request.CommentRequest;
 import com.fourzhang.youddit.service.CommentService;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -49,4 +47,6 @@ public class CommentServiceImpl implements CommentService {
         commentCommentMapper.insert(commentComment);
         return ResultTool.success(commentComment);
     }
+
+    
 }

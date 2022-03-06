@@ -4,6 +4,7 @@ import com.fourzhang.youddit.data.Result;
 import com.fourzhang.youddit.data.ResultCode;
 import com.fourzhang.youddit.data.ResultTool;
 import com.fourzhang.youddit.entity.User;
+import com.fourzhang.youddit.request.ResetRequest;
 import com.fourzhang.youddit.request.SignUpRequest;
 import com.fourzhang.youddit.request.UserInformationRequest;
 import com.fourzhang.youddit.service.UserService;
@@ -21,17 +22,31 @@ public class UserController {
 
     @PostMapping(path = "/api/user/signup")
     public Result<Integer> signUp(@RequestBody SignUpRequest request) {
-        try {
-            User user = new User();
-            user.setUsername(request.getUsername());
-            user.setPassword(request.getPassword());
-            user.setEmail(request.getEmail());
-            user.setPhone(request.getPhone());
-            userService.signUp(user);
-            return ResultTool.success();
-        } catch (Exception e) {
+        User user = new User();
+        user.setUsername(request.getUsername());
+        user.setPassword(request.getPassword());
+        user.setEmail(request.getEmail());
+        user.setPhone(request.getPhone());
+
+        if (!userService.signUp(user)) {
             return ResultTool.fail(ResultCode.USER_ACCOUNT_ALREADY_EXIST);
         }
+        
+        return ResultTool.success();
+    }
+
+    @PostMapping(path = "/api/user/reset")
+    public Result<Integer> reset(@RequestBody ResetRequest request) {
+        User user = userService.findUserByName(request.getUsername());
+        if (user == null) { return ResultTool.fail(ResultCode.USER_ACCOUNT_NOT_EXIST); }
+
+        if (!user.getEmail().equals(request.getEmail())) { return ResultTool.fail(ResultCode.USER_RESET_VERIFIY_FAIL); }
+
+        if (!userService.reset(user.getUsername(), request.getNewPassword())) {
+            return ResultTool.fail(ResultCode.COMMON_FAIL);
+        }
+
+        return ResultTool.success();
     }
 
     //获取用户的个人主页

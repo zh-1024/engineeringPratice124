@@ -15,11 +15,13 @@ import java.security.Principal;
 @RestController
 @RequestMapping("api/social")
 public class CommentController {
+
     @Autowired
     private CommentService commentService;
     @PostMapping("commentComment")
     public Result commentComment(@RequestBody CommentRequest commentrequest, Principal principal) throws Exception {
         String name=principal.getName();
+
         return  commentService.commentComment(commentrequest,name);
     }
 }
