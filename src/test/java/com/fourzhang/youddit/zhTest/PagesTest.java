@@ -32,11 +32,11 @@ public class PagesTest {
         Page<Content> page1 = contentLabelMapper.selectContentsByLabel(page, 0L);
         System.out.println(new ArrayList<>(page1.getRecords()));
     }
-    @Test
-    public void mapperXmlTest() {
-        List<Content> contents = contentMapper.findSubscribeContents(1L);
-        System.out.println(contents.size());
-    }
+//    @Test
+//    public void mapperXmlTest() {
+//        List<Content> contents = contentMapper.findSubscribeContents(1L);
+//        System.out.println(contents.size());
+//    }
 
     @Test
     public  void testSelectList(){

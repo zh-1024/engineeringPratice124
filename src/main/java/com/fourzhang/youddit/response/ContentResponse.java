@@ -17,9 +17,9 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ContentResponse {
-    private List<Content> contents;
     private long pages; //总页数
     private long  total; //总记录数
     private boolean hasNext; //是否有下一页
     private boolean hasPrevious; //是否有前一页
+    private List<Content> contents;
 }
