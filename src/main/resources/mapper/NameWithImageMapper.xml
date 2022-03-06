@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fourzhang.youddit.mapper.UserMapper">
+
+    <select id="findFollowingList"
+            resultType="com.fourzhang.youddit.entity.User">
+        select * from user where id in
+            (select user2_id from follow where user1_id = #{id})
+    </select>
+</mapper>

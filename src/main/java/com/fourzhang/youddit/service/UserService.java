@@ -3,13 +3,18 @@ package com.fourzhang.youddit.service;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.fourzhang.youddit.data.Result;
 import com.fourzhang.youddit.data.ResultCode;
 import com.fourzhang.youddit.data.ResultTool;
+import com.fourzhang.youddit.entity.Content;
 import com.fourzhang.youddit.entity.User;
 import com.fourzhang.youddit.mapper.UserMapper;
 
+import com.fourzhang.youddit.request.PageRange;
 import com.fourzhang.youddit.request.UserInformationRequest;
+import com.fourzhang.youddit.response.NameWithImageListResponse;
+import com.fourzhang.youddit.response.NameWithImageResponse;
 import com.fourzhang.youddit.response.UserHomePageResponse;
 import com.fourzhang.youddit.response.UserInformationResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,9 +23,12 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.security.Principal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class UserService implements UserDetailsService {
@@ -127,4 +135,29 @@ public class UserService implements UserDetailsService {
         }
         return ResultTool.success();
     }
+
+    public Result getFollowingList(Long id, Integer from, Integer num){
+        Page<User> page = new Page<>(from, num);
+        Page<User> res = userMapper.findFollowingList(id, page);
+
+        NameWithImageListResponse response = new NameWithImageListResponse();
+
+        List<User> userList = res.getRecords();
+        List<NameWithImageResponse> resList = new ArrayList<>();
+        for(User e : userList){
+            NameWithImageResponse tmp = new NameWithImageResponse();
+            tmp.setUsername(e.getUsername());
+            tmp.setAvatar(e.getAvatar());
+            resList.add(tmp);
+        }
+
+        response.setContents(resList);
+        response.setPages(res.getPages());
+        response.setTotal(res.getTotal());
+        response.setHasNext(res.hasNext());
+        response.setHasPrevious(res.hasPrevious());
+
+        return ResultTool.success(response);
+    }
+
 }
