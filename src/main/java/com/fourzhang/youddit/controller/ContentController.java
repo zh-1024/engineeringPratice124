@@ -9,14 +9,14 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("api/content")
 public class ContentController {
-    @Autowired
-    private PublishService publishService;
-    @PostMapping("publish")
-    public Result publish(@RequestBody ContentParam contentParam){
-        return publishService.publish(contentParam);
-    }
-    @PostMapping("delete/{content_id}")
-    public Result delete(@PathVariable long content_id){
-        return publishService.deletePub(content_id);
-    }
+//    @Autowired
+//    private PublishService publishService;
+//    @PostMapping("publish")
+//    public Result publish(@RequestBody ContentParam contentParam){
+//        return publishService.publish(contentParam);
+//    }
+//    @PostMapping("delete/{content_id}")
+//    public Result delete(@PathVariable long content_id){
+//        return publishService.deletePub(content_id);
+//    }
 }
