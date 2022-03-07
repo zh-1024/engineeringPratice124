@@ -3,14 +3,14 @@
 <mapper namespace="com.fourzhang.youddit.mapper.UserMapper">
 
     <select id="findFollowingList"
-            resultType="com.fourzhang.youddit.entity.User">
-        select * from user where id in
+            resultType="com.fourzhang.youddit.response.NameWithImageResponse">
+        select username, avatar from user where id in
             (select user2_id from follow where user1_id = #{id})
     </select>
 
     <select id="findFollowersList"
-            resultType="com.fourzhang.youddit.entity.User">
-        select * from user where id in
+            resultType="com.fourzhang.youddit.response.NameWithImageResponse">
+        select username, avatar from user where id in
                                  (select user1_id from follow where user2_id = #{id})
     </select>
 </mapper>

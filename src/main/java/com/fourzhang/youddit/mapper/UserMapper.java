@@ -9,6 +9,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface UserMapper extends BaseMapper<User> {
-    Page<User> findFollowingList(Long id, Page<User> page);
-    Page<User> findFollowersList(Long id, Page<User> page);
+    Page<NameWithImageResponse> findFollowingList(Long id, Page<NameWithImageResponse> page);
+
+    Page<NameWithImageResponse> findFollowersList(Long id, Page<NameWithImageResponse> page);
 }

@@ -153,34 +153,29 @@ public class UserService implements UserDetailsService {
     }
 
     public Result getFollowingList(Long id, Integer from, Integer num){
-        Page<User> page = new Page<>(from, num);
-        Page<User> res = userMapper.findFollowingList(id, page);
-        return makeUserToNameWithImage(res);
+        Page<NameWithImageResponse> page = new Page<>(from, num);
+        Page<NameWithImageResponse> res = userMapper.findFollowingList(id, page);
+
+        return getResult(res);
     }
 
-    public Result makeUserToNameWithImage(Page<User> res){
-        NameWithImageListResponse response = new NameWithImageListResponse();
-        List<User> userList = res.getRecords();
-        List<NameWithImageResponse> resList = new ArrayList<>();
-        for(User e : userList){
-            NameWithImageResponse tmp = new NameWithImageResponse();
-            tmp.setUsername(e.getUsername());
-            tmp.setAvatar(e.getAvatar());
-            resList.add(tmp);
-        }
 
-        response.setContents(resList);
+    public Result getFollowersList(Long id, Integer from, Integer num){
+        Page<NameWithImageResponse> page = new Page<>(from, num);
+        Page<NameWithImageResponse> res = userMapper.findFollowersList(id, page);
+
+        return getResult(res);
+    }
+
+    private Result getResult(Page<NameWithImageResponse> res) {
+
+        NameWithImageListResponse response = new NameWithImageListResponse();
+        response.setContents(res.getRecords());
         response.setPages(res.getPages());
         response.setTotal(res.getTotal());
         response.setHasNext(res.hasNext());
         response.setHasPrevious(res.hasPrevious());
 
         return ResultTool.success(response);
-    }
-
-    public Result getFollowersList(Long id, Integer from, Integer num){
-        Page<User> page = new Page<>(from, num);
-        Page<User> res = userMapper.findFollowersList(id, page);
-        return makeUserToNameWithImage(res);
     }
 }
