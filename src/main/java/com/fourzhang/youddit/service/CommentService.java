@@ -11,6 +11,8 @@ import com.fourzhang.youddit.request.CommentRequest;
 public interface CommentService {
     public Result commentComment(CommentRequest commentRequest,String usrname) throws Exception;
 
+    public Result contentComment(CommentRequest commentRequest,String usrname);
+
     public List<ContentComment> loadContentComment(Long contentId, Integer from, Integer num);
 
     public List<CommentComment> loadCommentComment(Long commentId, Integer from, Integer num);

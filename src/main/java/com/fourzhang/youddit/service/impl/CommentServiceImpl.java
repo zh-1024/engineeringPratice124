@@ -53,6 +53,24 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
+    public Result contentComment(CommentRequest commentRequest, String usrname) {
+        LambdaQueryWrapper<User> wrapper=new LambdaQueryWrapper<>();
+        wrapper.select(User::getId);
+        wrapper.eq(User::getUsername,usrname);
+        User usr=userMapper.selectOne(wrapper);
+        Long usrid=usr.getId();
+        ContentComment contentComment=new ContentComment();
+        contentComment.setUserId(usrid);
+        contentComment.setCommentTime(LocalDateTime.now());
+        contentComment.setCommentInfo(commentRequest.getComment_info());
+        contentComment.setContentId(commentRequest.getContentId());
+        contentCommentMapper.insert(contentComment);
+        return ResultTool.success(contentComment);
+    }
+
+
+
+    @Override
     public List<ContentComment> loadContentComment(Long contentId, Integer from, Integer num) {
         QueryWrapper<ContentComment> wrapper = new QueryWrapper<>();
         wrapper.eq("content_id", contentId);

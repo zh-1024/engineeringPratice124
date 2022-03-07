@@ -32,6 +32,12 @@ public class CommentController {
 
         return  commentService.commentComment(commentrequest,name);
     }
+    @PostMapping("contentComment")
+    public Result contentComment(@RequestBody CommentRequest commentrequest, Principal principal){
+        String name=principal.getName();
+        return commentService.contentComment(commentrequest,name);
+    }
+
 
     @PostMapping("load")
     public Result<List<ContentComment>> loadComment(@RequestBody ContentCommentRequest request) {
