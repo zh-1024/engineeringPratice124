@@ -11,7 +11,12 @@ public enum ResultCode {
 	USER_RESET_VERIFIY_FAIL(2005, "user verification failed"),
 
 	//sharkboom-用于用户非法尝试修改别人的个人信息报错
-	USER_NO_PERMISSION(2006, "user has no permission failed");
+	USER_NO_PERMISSION(2006, "user has no permission failed"),
+
+	CONTENT_IS_COLLECTED(2007,"content has been collected"),
+	CONTENT_CANCEL_COLLECTED(2009,"content has been uncollected"),
+	CONTENT_IS_LIKED(2008,"content has been liked"),
+	CONTENT_CANCEL_LIKED(2008,"content has been unliked");
 	
 	private Integer code;
     private String msg;
