@@ -22,11 +22,9 @@ public class PrivateMessageServiceImpl implements PrivateMessageService {
     public boolean saveMessage(PrivateMessage message) {
         try {
             privateMessageMapper.insert(message);
-            
         } catch (Exception e) {
             return false;
         }
-
         return true;
     }
 

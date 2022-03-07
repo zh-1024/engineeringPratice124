@@ -33,18 +33,15 @@ public class PublishServiceImpl implements PublishService {
     @Override
     @Transactional
     public Result publish(ContentParam cm) {
-        //long content_id=cm.getContent_id();
         long user_id=cm.getUser_id();
         String info_describe=cm.getInfo_describe();
         LocalDateTime time=LocalDateTime.now();
         List<String> labelnames=cm.getLabel_names();
         Content content=new Content();
-       // content.setContentId(content_id);
         content.setUserId(user_id);
         content.setInfoDescribe(info_describe);
         content.setPostTime(time);
         contentMapper.insert(content);
-
         List<String> imgurls=cm.getImage_url();
         for(String imgurl:imgurls){
             Image image=new Image();
@@ -73,7 +70,7 @@ public class PublishServiceImpl implements PublishService {
             cl.setLabelId(label.getLabelId());
             contentLabelMapper.insert(cl);
         }
-        return ResultTool.success(null);
+        return ResultTool.success(content.getContentId());
     }
     /*
     @Override

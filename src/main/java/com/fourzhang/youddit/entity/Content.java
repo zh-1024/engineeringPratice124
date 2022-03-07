@@ -30,11 +30,11 @@ public class Content implements Serializable {
 
     private String infoDescribe;
 
-    private Long viewsNum;
+    private Long viewsNum=0L;
 
-    private Long likeNum;
+    private Long likeNum=0L;
 
-    private Long collectNum;
+    private Long collectNum=0L;
 
     private LocalDateTime postTime;
 
