@@ -68,6 +68,28 @@ public class CommentServiceImpl implements CommentService {
         return ResultTool.success(contentComment);
     }
 
+    @Override
+    @Transactional
+    public Result deleteContentComment(Long commentId) {
+        LambdaQueryWrapper<CommentComment> queryWrapper1=new LambdaQueryWrapper<>();
+        queryWrapper1.eq(CommentComment::getContentCommentId,commentId);
+        commentCommentMapper.delete(queryWrapper1);
+        contentCommentMapper.deleteById(commentId);
+        return ResultTool.success(null);
+    }
+
+    @Override
+    public Result deleteCommentComment(Long commentId) {
+        CommentComment cc=commentCommentMapper.selectById(commentId);
+        if(cc.getLevel()==0){
+            LambdaQueryWrapper<CommentComment> wrapper=new LambdaQueryWrapper<>();
+            wrapper.select(CommentComment::getId);
+            wrapper.eq(CommentComment::getCommentCommentId,commentId);
+            commentCommentMapper.delete(wrapper);
+        }
+        contentCommentMapper.deleteById(commentId);
+        return ResultTool.success(null);
+    }
 
 
     @Override

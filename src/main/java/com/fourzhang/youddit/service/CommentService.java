@@ -13,6 +13,10 @@ public interface CommentService {
 
     public Result contentComment(CommentRequest commentRequest,String usrname);
 
+    public Result deleteContentComment(Long commentId);
+
+    public Result deleteCommentComment(Long commentId);
+
     public List<ContentComment> loadContentComment(Long contentId, Integer from, Integer num);
 
     public List<CommentComment> loadCommentComment(Long commentId, Integer from, Integer num);

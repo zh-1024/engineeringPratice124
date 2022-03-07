@@ -11,10 +11,7 @@ import com.fourzhang.youddit.service.CommentService;
 import com.fourzhang.youddit.service.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.List;
@@ -26,16 +23,25 @@ public class CommentController {
     @Autowired
     private CommentService commentService;
 
-    @PostMapping("commentComment")
+    @PostMapping("/commentComment")
     public Result commentComment(@RequestBody CommentRequest commentrequest, Principal principal) throws Exception {
         String name=principal.getName();
-
         return  commentService.commentComment(commentrequest,name);
     }
-    @PostMapping("contentComment")
+    @PostMapping("/contentComment")
     public Result contentComment(@RequestBody CommentRequest commentrequest, Principal principal){
         String name=principal.getName();
         return commentService.contentComment(commentrequest,name);
+    }
+
+    @PostMapping("/deleteContentComment/{commentId}")
+    public Result deleteContentComment(@PathVariable Long commentId){
+        return commentService.deleteContentComment(commentId);
+    }
+
+    @PostMapping("/deleteCommentComment/{commentId}")
+    public Result deleteCommentComment(@PathVariable Long commentId){
+        return commentService.deleteCommentComment(commentId);
     }
 
 

@@ -20,14 +20,24 @@ public class ContentController {
     private DeleteContentService deleteContentService;
     @Autowired
     private ContentServiceImpl contentService;
-    @PostMapping("publish")
+
+    @PostMapping("/publish")
     public Result publish(@RequestBody ContentParam contentParam){
         return publishService.publish(contentParam);
     }
-    @PostMapping("delete/{content_id}")
+
+    @PostMapping("/delete/{content_id}")
     public Result delete(@PathVariable long content_id){
         return deleteContentService.deletePub(content_id);
     }
+
+    @PostMapping("/update/{content_id}")
+    public Result update(@PathVariable long content_id,@RequestBody ContentParam contentParam){
+        deleteContentService.deletePub(content_id);
+        return publishService.publish(contentParam);
+    }
+
+
 
     /**
      * @author zh
