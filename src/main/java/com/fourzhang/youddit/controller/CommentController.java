@@ -8,7 +8,6 @@ import com.fourzhang.youddit.request.CommentCommentRequest;
 import com.fourzhang.youddit.request.CommentRequest;
 import com.fourzhang.youddit.request.ContentCommentRequest;
 import com.fourzhang.youddit.service.CommentService;
-import com.fourzhang.youddit.service.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
