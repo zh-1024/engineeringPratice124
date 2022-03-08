@@ -54,7 +54,7 @@ public class PrivateMessageController {
         PrivateMessageResponse response = new PrivateMessageResponse(message.getSenderId(), message.getMessage());
 
         try {
-            simpMessagingTemplate.convertAndSend("/topic/" + message.getSenderId(), response);
+            simpMessagingTemplate.convertAndSend("/topic/" + message.getReceiveId(), response);
         } catch (Exception e) {
             return ResultTool.fail();
         }
