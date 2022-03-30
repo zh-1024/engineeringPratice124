@@ -32,7 +32,6 @@ public class CommentServiceImpl implements CommentService {
     @Transactional
     public Result commentComment(CommentRequest commentRequest,String usrname) {
         CommentComment commentComment=new CommentComment();
-        //BeanUtils.copyProperties(commentRequest,commentComment);
         commentComment.setContentCommentId(commentRequest.getContentCommentId());
         commentComment.setCommentTime(LocalDateTime.now());
         LambdaQueryWrapper<User> wrapper=new LambdaQueryWrapper<>();

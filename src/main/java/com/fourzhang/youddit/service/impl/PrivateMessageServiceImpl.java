@@ -40,7 +40,6 @@ public class PrivateMessageServiceImpl implements PrivateMessageService {
         for (PrivateMessage message : list) {
             res.add(new PrivateMessageResponse(message.getSenderId(), message.getMessage()));
         }
-
         return res;
     }
     

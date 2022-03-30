@@ -44,7 +44,6 @@ public class InteractiveServiceImpl implements InteractiveService {
         contentLikeUser.setUserId(userId);
         contentIsLiked(contentId,userId);
         contentLikeUserMapper.insert(contentLikeUser);
-
         Content content = contentMapper.selectById(contentId);
         content.setLikeNum(content.getLikeNum()+1);
         int update = contentMapper.updateById(content);
@@ -60,7 +59,6 @@ public class InteractiveServiceImpl implements InteractiveService {
         queryWrapper.eq("content_id",contentId);
         queryWrapper.eq("user_id",userId);
         contentLikeUserMapper.delete(queryWrapper);
-
         Content content = contentMapper.selectById(contentId);
         content.setLikeNum(content.getLikeNum()-1);
         int update = contentMapper.updateById(content);
@@ -90,10 +88,8 @@ public class InteractiveServiceImpl implements InteractiveService {
         contentCollectUser.setContentId(contentId);
         contentCollectUser.setUserId(userId);
         contentCollectUserMapper.insert(contentCollectUser);
-
         Content content = contentMapper.selectById(contentId);
         content.setCollectNum(content.getCollectNum()+1);
-
         int update = contentMapper.updateById(content);
         return new Result(ResultCode.SUCCESS);
     }
@@ -104,7 +100,6 @@ public class InteractiveServiceImpl implements InteractiveService {
         Result<Boolean> booleanResult = contentIsCollect(contentId, userId);
         if(booleanResult.getData().equals(false))
             return  new Result(ResultCode.CONTENT_CANCEL_COLLECTED);
-
         QueryWrapper<ContentCollectUser> queryWrapper=new QueryWrapper<>();
         queryWrapper.eq("content_id",contentId);
         queryWrapper.eq("user_id",userId);

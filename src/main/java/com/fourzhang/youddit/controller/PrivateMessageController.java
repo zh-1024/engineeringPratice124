@@ -37,28 +37,22 @@ public class PrivateMessageController {
     public Result<Integer> sendMessage(@RequestBody PrivateMessageRequest request, Principal principal) {
         User receiver = userService.findUserById(request.getReceiveId());
         if (receiver == null) { return ResultTool.fail(); }
-
         User sender = userService.findUserByName(principal.getName());
         if (sender == null) { return ResultTool.fail(); }
-
         PrivateMessage message = new PrivateMessage();
         message.setSenderId(sender.getId());
         message.setReceiveId(receiver.getId());
         message.setMessage(request.getMessage());
         message.setSendTime(LocalDateTime.now());
-
         if (!privateMessageService.saveMessage(message)) {
             return ResultTool.fail();
         }
-
         PrivateMessageResponse response = new PrivateMessageResponse(message.getSenderId(), message.getMessage());
-
         try {
             simpMessagingTemplate.convertAndSend("/topic/" + message.getSenderId(), response);
         } catch (Exception e) {
             return ResultTool.fail();
         }
-
         return ResultTool.success();
     }
 
