@@ -70,6 +70,7 @@ public class PublishServiceImpl implements PublishService {
             cl.setLabelId(label.getLabelId());
             contentLabelMapper.insert(cl);
         }
+        System.out.println(content.getContentId());
         return ResultTool.success(content.getContentId());
     }
     /*
