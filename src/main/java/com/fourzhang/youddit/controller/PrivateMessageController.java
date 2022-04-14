@@ -4,6 +4,7 @@ import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
+import com.alibaba.fastjson.JSON;
 import com.fourzhang.youddit.data.Result;
 import com.fourzhang.youddit.data.ResultCode;
 import com.fourzhang.youddit.data.ResultTool;
@@ -14,9 +15,10 @@ import com.fourzhang.youddit.response.PrivateMessageResponse;
 import com.fourzhang.youddit.service.PrivateMessageService;
 import com.fourzhang.youddit.service.UserService;
 
+import org.springframework.amqp.core.DirectExchange;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -30,8 +32,14 @@ public class PrivateMessageController {
     @Autowired
     private UserService userService;
 
+    // @Autowired
+    // private SimpMessagingTemplate simpMessagingTemplate;
+
     @Autowired
-    private SimpMessagingTemplate simpMessagingTemplate;
+    private DirectExchange direct;
+
+    @Autowired
+    private RabbitTemplate template;
 
     @MessageMapping("/send")
     public Result<Integer> sendMessage(@RequestBody PrivateMessageRequest request, Principal principal) {
@@ -54,7 +62,8 @@ public class PrivateMessageController {
         PrivateMessageResponse response = new PrivateMessageResponse(message.getSenderId(), message.getMessage());
 
         try {
-            simpMessagingTemplate.convertAndSend("/topic/" + message.getReceiveId(), response);
+            // simpMessagingTemplate.convertAndSend("/topic/" + message.getReceiveId(), response);
+            template.convertAndSend(direct.getName(), message.getReceiveId().toString(), JSON.toJSONString(response));
         } catch (Exception e) {
             return ResultTool.fail();
         }
