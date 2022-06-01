@@ -32,9 +32,6 @@ public class PrivateMessageController {
     @Autowired
     private UserService userService;
 
-    // @Autowired
-    // private SimpMessagingTemplate simpMessagingTemplate;
-
     @Autowired
     private DirectExchange direct;
 
@@ -62,7 +59,6 @@ public class PrivateMessageController {
         PrivateMessageResponse response = new PrivateMessageResponse(message.getSenderId(), message.getMessage());
 
         try {
-            // simpMessagingTemplate.convertAndSend("/topic/" + message.getReceiveId(), response);
             template.convertAndSend(direct.getName(), message.getReceiveId().toString(), JSON.toJSONString(response));
         } catch (Exception e) {
             return ResultTool.fail();
