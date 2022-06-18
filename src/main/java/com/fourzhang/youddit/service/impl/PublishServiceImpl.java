@@ -9,7 +9,7 @@ import com.fourzhang.youddit.mapper.*;
 import com.fourzhang.youddit.service.PublishService;
 import com.fourzhang.youddit.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
+//import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -35,8 +35,7 @@ public class PublishServiceImpl implements PublishService {
     private LabelMapper labelMapper;
     @Autowired
     private UserMapper userMapper;
-    @Autowired
-    private RedisTemplate<String,String> redisTemplate;
+
     @Override
     @Transactional
     public Result publish(ContentParam cm) {
