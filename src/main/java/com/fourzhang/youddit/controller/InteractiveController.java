@@ -2,7 +2,6 @@ package com.fourzhang.youddit.controller;
 
 import com.fourzhang.youddit.data.Result;
 import com.fourzhang.youddit.entity.User;
-import com.fourzhang.youddit.response.ContentResponse;
 import com.fourzhang.youddit.service.UserService;
 import com.fourzhang.youddit.service.impl.InteractiveServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;

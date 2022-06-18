@@ -34,7 +34,7 @@ public class DeleteContentServiceImpl implements DeleteContentService {
     private ContentCollectUserMapper contentCollectUserMapper;
     @Override
     @Transactional
-    public Result deletePub(long content_id) {
+    public Result<Integer> deletePub(long content_id) {
         //删除ContentLabel
         LambdaQueryWrapper<ContentLabel> queryWrapper=new LambdaQueryWrapper<>();
         queryWrapper.eq(ContentLabel::getContentId,content_id);
@@ -93,6 +93,6 @@ public class DeleteContentServiceImpl implements DeleteContentService {
         commentCommentMapper.delete(queryWrapper7);
         //删除内容
         contentMapper.deleteById(content_id);
-        return ResultTool.success(null);
+        return ResultTool.success();
     }
 }
