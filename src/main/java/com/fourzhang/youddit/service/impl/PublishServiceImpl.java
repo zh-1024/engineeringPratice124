@@ -35,11 +35,12 @@ public class PublishServiceImpl implements PublishService {
     private LabelMapper labelMapper;
     @Autowired
     private UserMapper userMapper;
-
+    @Autowired
+    private UserService userService;
     @Override
     @Transactional
-    public Result publish(ContentParam cm) {
-        long user_id=cm.getUser_id();
+    public Result publish(ContentParam cm,Principal principal) {
+        long user_id=userService.findUserByName(principal.getName()).getId();
         /*令牌桶算法的限频处理*/
         /*
         String key=user_id+"::publish";

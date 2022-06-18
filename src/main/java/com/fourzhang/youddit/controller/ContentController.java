@@ -1,6 +1,7 @@
 package com.fourzhang.youddit.controller;
 
 import com.fourzhang.youddit.data.Result;
+import com.fourzhang.youddit.data.ResultTool;
 import com.fourzhang.youddit.request.ContentParam;
 import com.fourzhang.youddit.response.ContentResponse;
 import com.fourzhang.youddit.service.DeleteContentService;
@@ -8,7 +9,10 @@ import com.fourzhang.youddit.service.PublishService;
 import com.fourzhang.youddit.service.impl.ContentServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.security.Principal;
 
 @RestController
@@ -22,8 +26,19 @@ public class ContentController {
     private ContentServiceImpl contentService;
 
     @PostMapping("/publish")
-    public Result publish(@RequestBody ContentParam contentParam){
-        return publishService.publish(contentParam);
+    public Result publish(@RequestBody ContentParam contentParam,@RequestParam("image") MultipartFile file, Principal principal){
+        String url=System.getProperty("user.dir")+System.getProperty("file.separator")+"src\\main\\resources\\static";
+
+        System.out.println(url);
+        String con_content=file.getOriginalFilename();
+        File file1=new File(url,con_content);
+        try {
+            file.transferTo(file1);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        publishService.publish(contentParam,principal);
+        return ResultTool.success("localhost:8080"+System.getProperty("file.separator")+con_content);
     }
 
     @PostMapping("/delete/{content_id}")
@@ -32,9 +47,9 @@ public class ContentController {
     }
 
     @PostMapping("/update/{content_id}")
-    public Result update(@PathVariable long content_id,@RequestBody ContentParam contentParam){
+    public Result update(@PathVariable long content_id,@RequestBody ContentParam contentParam,Principal principal){
         deleteContentService.deletePub(content_id);
-        return publishService.publish(contentParam);
+        return publishService.publish(contentParam,principal);
     }
 
 
