@@ -22,8 +22,8 @@ public class ContentController {
     private ContentServiceImpl contentService;
 
     @PostMapping("/publish")
-    public Result publish(@RequestBody ContentParam contentParam){
-        return publishService.publish(contentParam);
+    public Result publish(@RequestBody ContentParam contentParam,Principal principal){
+        return publishService.publish(contentParam,principal);
     }
 
     @PostMapping("/delete/{content_id}")
@@ -32,9 +32,9 @@ public class ContentController {
     }
 
     @PostMapping("/update/{content_id}")
-    public Result update(@PathVariable long content_id,@RequestBody ContentParam contentParam){
+    public Result update(@PathVariable long content_id,@RequestBody ContentParam contentParam,Principal principal){
         deleteContentService.deletePub(content_id);
-        return publishService.publish(contentParam);
+        return publishService.publish(contentParam,principal);
     }
 
 
