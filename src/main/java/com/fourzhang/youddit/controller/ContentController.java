@@ -126,4 +126,9 @@ public class ContentController {
         return contentService.getSelfPublishContents(currentPage, pageSize, principal);
     }
 
+    @GetMapping("/getlables")
+    public Result getLables(){
+        return contentService.getLables();
+    }
+
 }

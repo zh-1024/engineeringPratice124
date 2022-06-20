@@ -1,12 +1,16 @@
 package com.fourzhang.youddit.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.fourzhang.youddit.data.Result;
+import com.fourzhang.youddit.data.ResultTool;
 import com.fourzhang.youddit.entity.Content;
+import com.fourzhang.youddit.entity.Label;
 import com.fourzhang.youddit.entity.User;
 import com.fourzhang.youddit.mapper.ContentCollectUserMapper;
 import com.fourzhang.youddit.mapper.ContentMapper;
+import com.fourzhang.youddit.mapper.LabelMapper;
 import com.fourzhang.youddit.response.ContentResponse;
 import com.fourzhang.youddit.service.ContentService;
 import com.fourzhang.youddit.service.UserService;
@@ -14,6 +18,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * TODO:此模块包含查询个人帖子、收藏帖子和他人帖子逻辑处理
@@ -29,7 +35,8 @@ public class ContentServiceImpl implements ContentService {
     private UserService userService;
     @Autowired
     private ContentCollectUserMapper contentCollectUserMapper;
-
+    @Autowired
+    private LabelMapper labelMapper;
     /**
      * @author zh
      * TODO: 分页查询个人发布的content
@@ -85,4 +92,16 @@ public class ContentServiceImpl implements ContentService {
         Result<ContentResponse> contentResponseResult = new Result<>(contentResponse);
         return contentResponseResult;
     }
+
+    @Override
+    public Result getLables() {
+        List<String> labels=new ArrayList<>();
+        List<Label> res=labelMapper.selectList(new LambdaQueryWrapper<>());
+        for(Label l:res){
+            labels.add(l.getLabelName());
+        }
+        return ResultTool.success(labels);
+    }
+
+
 }
