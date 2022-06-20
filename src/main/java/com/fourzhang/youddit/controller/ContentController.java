@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.IOException;
 import java.security.Principal;
+import java.util.Random;
 
 @RestController
 @RequestMapping("api/content")
@@ -24,7 +25,32 @@ public class ContentController {
     private DeleteContentService deleteContentService;
     @Autowired
     private ContentServiceImpl contentService;
-
+    //返回一个随机的头像
+    @GetMapping("/avatar")
+    public Result getAvatar(){
+        Random random=new Random();
+        int x=random.nextInt(5);
+        String url="localhost:8080"+System.getProperty("file.separator");
+        switch (x){
+            case 0:
+                url+="img.png";
+                break;
+            case 1:
+                url+="img_1.png";
+                break;
+            case 2:
+                url+="img_2.png";
+                break;
+            case 3:
+                url+="img_3.png";
+            case 4:
+                url+="img_4.png";
+            default:
+                break;
+        }
+        return ResultTool.success(url);
+    }
+    //发布内容，包含发布得相关信息以及图片
     @PostMapping("/publish")
     public Result publish(@RequestBody ContentParam contentParam,@RequestParam("image") MultipartFile file, Principal principal){
         String url=System.getProperty("user.dir")+System.getProperty("file.separator")+"src\\main\\resources\\static";
