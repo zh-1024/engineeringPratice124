@@ -15,6 +15,7 @@ import java.io.File;
 import java.io.IOException;
 import java.security.Principal;
 import java.util.Random;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("api/content")
@@ -57,6 +58,7 @@ public class ContentController {
 
         System.out.println(url);
         String con_content=file.getOriginalFilename();
+        con_content+= UUID.randomUUID().toString();
         File file1=new File(url,con_content);
         try {
             file.transferTo(file1);
@@ -65,7 +67,8 @@ public class ContentController {
         }
         contentParam.setImage_url(url);
         publishService.publish(contentParam,principal);
-        return ResultTool.success("localhost:8080"+System.getProperty("file.separator")+con_content);
+        //return ResultTool.success("localhost:8080"+System.getProperty("file.separator")+con_content);
+        return ResultTool.success(con_content);
     }
 
     @PostMapping("/delete/{content_id}")
