@@ -12,6 +12,7 @@ import com.fourzhang.youddit.entity.User;
 import com.fourzhang.youddit.mapper.UserMapper;
 
 import com.fourzhang.youddit.request.PageRange;
+import com.fourzhang.youddit.request.ResetRequest;
 import com.fourzhang.youddit.request.UserInformationRequest;
 import com.fourzhang.youddit.response.NameWithImageListResponse;
 import com.fourzhang.youddit.response.NameWithImageResponse;
@@ -59,7 +60,17 @@ public class UserService implements UserDetailsService {
 		}
         return true;
 	}
-
+    public boolean reset(ResetRequest resetRequest){
+        //Long id=findUserByName(resetRequest.getUsername());
+        User user=findUserByName(resetRequest.getUsername());
+        String pwd=bCryptPasswordEncoder.encode(resetRequest.getPassword());
+        //LambdaUpdateWrapper<User> wq=new LambdaUpdateWrapper<User>();
+        if(pwd.equals(user.getPassword())){
+            userMapper.updateById(user);
+            return  true;
+        }
+        return false;
+    }
     public User findUserById(Long id) {
         QueryWrapper<User> wrapper = new QueryWrapper<>();
         wrapper.eq("id", id);

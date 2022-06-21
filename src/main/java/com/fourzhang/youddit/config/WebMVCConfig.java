@@ -11,9 +11,10 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  * @Description 解决跨域问题
  */
 
-@Configuration
+
 public class WebMVCConfig implements WebMvcConfigurer {
 
+    /*
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
@@ -21,4 +22,6 @@ public class WebMVCConfig implements WebMvcConfigurer {
                 .allowedMethods("*")    //哪些方法可以访问
                 .allowCredentials(true); //访问时是否需要验证
     }
+
+     */
 }

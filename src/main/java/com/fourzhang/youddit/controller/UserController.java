@@ -5,10 +5,12 @@ import com.fourzhang.youddit.data.ResultCode;
 import com.fourzhang.youddit.data.ResultTool;
 import com.fourzhang.youddit.entity.User;
 import com.fourzhang.youddit.request.PageRange;
+import com.fourzhang.youddit.request.ResetRequest;
 import com.fourzhang.youddit.request.SignUpRequest;
 import com.fourzhang.youddit.request.UserInformationRequest;
 import com.fourzhang.youddit.service.UserService;
 
+import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,7 +36,13 @@ public class UserController {
             return ResultTool.fail(ResultCode.USER_ACCOUNT_ALREADY_EXIST);
         }
     }
-
+    @PostMapping(path = "/api/user/reset")
+    public Result reset(@RequestBody ResetRequest resetRequest){
+        if(userService.reset(resetRequest))
+            return ResultTool.success();
+        else
+            return ResultTool.fail(ResultCode.USER_CREDENTIALS_ERROR);
+    }
     //获取用户的个人主页
     @GetMapping(path = "/api/user/homepage")
     public Result getUserHomePage(Principal principal){
