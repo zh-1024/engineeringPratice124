@@ -10,6 +10,7 @@ import com.fourzhang.youddit.entity.Image;
 import com.fourzhang.youddit.entity.Label;
 import com.fourzhang.youddit.mapper.*;
 import com.fourzhang.youddit.response.ContentResponse;
+import com.fourzhang.youddit.response.Labels;
 import com.fourzhang.youddit.response.TotalContent;
 import com.fourzhang.youddit.service.ContentService;
 import com.fourzhang.youddit.service.UserService;
@@ -102,11 +103,14 @@ public class ContentServiceImpl implements ContentService {
     @Override
     public Result getLables() {
         List<String> labels=new ArrayList<>();
+        List<Long> ids=new ArrayList<>();
         List<Label> res=labelMapper.selectList(new LambdaQueryWrapper<>());
+
         for(Label l:res){
             labels.add(l.getLabelName());
+            ids.add(l.getLabelId());
         }
-        return ResultTool.success(labels);
+        return ResultTool.success(new Labels(labels,ids));
     }
 
     @Override

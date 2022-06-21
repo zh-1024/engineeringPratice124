@@ -1,6 +1,8 @@
 package com.fourzhang.youddit.response;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -13,6 +15,7 @@ import java.util.List;
 public class TotalContent {
     private Long contentId;
     private String imgUrl;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime time;
     private String userName;
     private List<String> labelNames;

@@ -105,4 +105,12 @@ public class UserController {
                 range.getFrom(),
                 range.getNum());
     }
+    @GetMapping("/api/findUserById")
+    public Result findUserById(@RequestParam("id")Long id){
+        User user=userService.findUserById(id);
+        if(user!=null)
+            return ResultTool.success(user.getUsername());
+        else
+            return ResultTool.fail();
+    }
 }

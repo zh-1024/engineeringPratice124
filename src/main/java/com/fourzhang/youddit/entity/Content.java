@@ -2,7 +2,9 @@ package com.fourzhang.youddit.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -35,7 +37,7 @@ public class Content implements Serializable {
     private Long likeNum=0L;
 
     private Long collectNum=0L;
-
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime postTime;
 
 

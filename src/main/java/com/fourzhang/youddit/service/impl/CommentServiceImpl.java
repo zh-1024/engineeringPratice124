@@ -12,7 +12,9 @@ import com.fourzhang.youddit.mapper.CommentCommentMapper;
 import com.fourzhang.youddit.mapper.ContentCommentMapper;
 import com.fourzhang.youddit.mapper.UserMapper;
 import com.fourzhang.youddit.request.CommentRequest;
+import com.fourzhang.youddit.response.ContenCommentResponse;
 import com.fourzhang.youddit.service.CommentService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -49,7 +51,9 @@ public class CommentServiceImpl implements CommentService {
             return ResultTool.fail();
         }
         commentCommentMapper.insert(commentComment);
-        return ResultTool.success(commentComment);
+        ContenCommentResponse res=new ContenCommentResponse();
+        BeanUtils.copyProperties(commentComment,res);
+        return ResultTool.success(res);
     }
 
     @Override
@@ -65,7 +69,10 @@ public class CommentServiceImpl implements CommentService {
         contentComment.setCommentInfo(commentRequest.getComment_info());
         contentComment.setContentId(commentRequest.getContentId());
         contentCommentMapper.insert(contentComment);
-        return ResultTool.success(contentComment);
+        ContenCommentResponse res=new ContenCommentResponse();
+        BeanUtils.copyProperties(contentComment,res);
+        res.setUserName(usrname);
+        return ResultTool.success(res);
     }
 
     @Override

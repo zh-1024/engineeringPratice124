@@ -3,6 +3,7 @@ package com.fourzhang.youddit.entity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import lombok.*;
 
@@ -35,7 +36,7 @@ public class CommentComment implements Serializable {
     private Long commentCommentId;
 
     private Long userId;
-
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime commentTime;
 
     private Integer level;

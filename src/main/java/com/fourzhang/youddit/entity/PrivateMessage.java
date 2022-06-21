@@ -3,6 +3,7 @@ package com.fourzhang.youddit.entity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import lombok.*;
 
@@ -35,7 +36,7 @@ public class PrivateMessage implements Serializable {
     private Long receiveId;
 
     private String message;
-
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime sendTime;
 
 
