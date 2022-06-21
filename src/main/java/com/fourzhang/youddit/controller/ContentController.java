@@ -63,6 +63,7 @@ public class ContentController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        contentParam.setImage_url(url);
         publishService.publish(contentParam,principal);
         return ResultTool.success("localhost:8080"+System.getProperty("file.separator")+con_content);
     }
