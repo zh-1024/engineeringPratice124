@@ -37,6 +37,7 @@ public class PublishServiceImpl implements PublishService {
     private UserMapper userMapper;
     @Autowired
     private UserService userService;
+
     @Override
     @Transactional
     public Result publish(ContentParam cm,Principal principal) {
@@ -64,8 +65,8 @@ public class PublishServiceImpl implements PublishService {
                 redisTemplate.opsForValue().decrement(key);
             }
         }
+    */
 
-         */
         String info_describe=cm.getInfo_describe();
         LocalDateTime time=LocalDateTime.now();
         List<String> labelnames=cm.getLabel_names();

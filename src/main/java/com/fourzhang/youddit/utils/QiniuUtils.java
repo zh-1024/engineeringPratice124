@@ -1,5 +1,5 @@
 package com.fourzhang.youddit.utils;
-
+/*
 import com.alibaba.fastjson.JSON;
 import com.qiniu.http.Response;
 import com.qiniu.storage.Configuration;
@@ -9,10 +9,14 @@ import com.qiniu.storage.model.DefaultPutRet;
 import com.qiniu.util.Auth;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import org.springframework.web.multipart.MultipartFile;
+*/
+
+ import org.springframework.stereotype.Component;
+ import org.springframework.web.multipart.MultipartFile;
 
 @Component
 public class QiniuUtils {
+    /*
     public static final String url = "r8f1geeqa.hd-bkt.clouddn.com";
     @Value("n_RM9GYwVH4Xr076jgBCeKWjS-gO2q_Lid-bQxQE")
     private  String accessKey;
@@ -38,5 +42,5 @@ public class QiniuUtils {
             ex.printStackTrace();
         }
         return false;
-    }
+    }*/
 }
