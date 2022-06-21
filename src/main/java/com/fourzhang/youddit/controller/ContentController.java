@@ -54,6 +54,7 @@ public class ContentController {
     //发布内容，包含发布得相关信息以及图片
     @PostMapping("/publish")
     public Result publish(@RequestBody ContentParam contentParam,@RequestParam("image") MultipartFile file, Principal principal){
+       /*
         String url=System.getProperty("user.dir")+System.getProperty("file.separator")+"src\\main\\resources\\static";
 
         System.out.println(url);
@@ -65,10 +66,13 @@ public class ContentController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        contentParam.setImage_url(url);
-        publishService.publish(contentParam,principal);
+
+        */
+        //contentParam.setImage_url(url);
+        return publishService.publish(contentParam,principal);
+
         //return ResultTool.success("localhost:8080"+System.getProperty("file.separator")+con_content);
-        return ResultTool.success(con_content);
+        //return ResultTool.success(con_content);
     }
 
     @PostMapping("/delete/{content_id}")

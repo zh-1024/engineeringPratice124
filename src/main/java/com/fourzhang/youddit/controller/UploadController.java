@@ -34,12 +34,14 @@ public class UploadController {
 
         System.out.println(url);
         String con_content=file.getOriginalFilename();
+        con_content+= UUID.randomUUID().toString();
         File file1=new File(url,con_content);
         try {
             file.transferTo(file1);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return ResultTool.success("localhost:8080"+System.getProperty("file.separator")+con_content);
+       // return ResultTool.success("localhost:8080"+System.getProperty("file.separator")+con_content);
+        return ResultTool.success(con_content);
     }
 }
