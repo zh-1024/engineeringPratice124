@@ -61,12 +61,12 @@ public class UserService implements UserDetailsService {
         return true;
 	}
     public boolean reset(ResetRequest resetRequest){
-        //Long id=findUserByName(resetRequest.getUsername());
         User user=findUserByName(resetRequest.getUsername());
-        String pwd=bCryptPasswordEncoder.encode(resetRequest.getPassword());
-        //LambdaUpdateWrapper<User> wq=new LambdaUpdateWrapper<User>();
-        user.setPassword(resetRequest.getNewPassword());
-        if(pwd.equals(user.getPassword())){
+        //String pwd=bCryptPasswordEncoder.encode(resetRequest.getPassword());
+        boolean flag=bCryptPasswordEncoder.matches(resetRequest.getPassword(),user.getPassword());
+        if(flag){
+            user.setPassword(bCryptPasswordEncoder.encode(resetRequest.getNewPassword()));
+            user.setEmail(resetRequest.getEmail());
             userMapper.updateById(user);
             return  true;
         }

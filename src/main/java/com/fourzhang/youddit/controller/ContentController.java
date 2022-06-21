@@ -53,7 +53,7 @@ public class ContentController {
     }
     //发布内容，包含发布得相关信息以及图片
     @PostMapping("/publish")
-    public Result publish(@RequestBody ContentParam contentParam,@RequestParam("image") MultipartFile file, Principal principal){
+    public Result publish(@RequestBody ContentParam contentParam, Principal principal){
        /*
         String url=System.getProperty("user.dir")+System.getProperty("file.separator")+"src\\main\\resources\\static";
 

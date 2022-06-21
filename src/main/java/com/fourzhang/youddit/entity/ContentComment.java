@@ -19,7 +19,7 @@ import java.time.LocalDateTime;
  */
 @Getter
 @Setter
-@TableName("cotent_comment")
+@TableName("content_comment")
 @ApiModel(value = "CotentComment对象", description = "")
 @ToString
 @AllArgsConstructor

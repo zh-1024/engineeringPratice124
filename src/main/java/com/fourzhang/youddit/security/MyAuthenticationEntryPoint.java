@@ -22,6 +22,7 @@ public class MyAuthenticationEntryPoint implements AuthenticationEntryPoint {
 	public void commence(HttpServletRequest request, HttpServletResponse response,
 			AuthenticationException authException) throws IOException, ServletException {
 		Result<Integer> result = ResultTool.fail(ResultCode.USER_NOT_LOGIN);
+		System.out.println("user not login");
 		response.setContentType("text/json;charset=utf-8");
 		response.getWriter().write(JSON.toJSONString(result));
 	}

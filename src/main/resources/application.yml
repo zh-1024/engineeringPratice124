@@ -10,6 +10,11 @@ spring:
     virtual-host: youddit
     username: guest
     password: guest
+  servlet:
+    multipart:
+      max-file-size: 2MB
+      max-request-size: 20MB
 
 mybatis-plus:
-  mapper-locations: classpath:mapper/*.xml
+  mapper-locations: classpath:mapper/*.xmlspring.servlet.multipart.max-request-size=20MB
+

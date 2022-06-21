@@ -5,10 +5,7 @@ import com.fourzhang.youddit.utils.QiniuUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -21,7 +18,7 @@ public class UploadController {
     @Autowired
     private QiniuUtils qiniuUtils;
     @PostMapping
-    public Result upload(@RequestParam("image") MultipartFile file) throws IOException {
+    public Result upload(@RequestPart("image") MultipartFile file) throws IOException {
         /*
         String fileName = UUID.randomUUID().toString() + "." + StringUtils.substringAfterLast(file.getOriginalFilename(), ".");
         boolean upload = qiniuUtils.upload(file, fileName);
@@ -34,7 +31,16 @@ public class UploadController {
 
         System.out.println(url);
         String con_content=file.getOriginalFilename();
-        con_content+= UUID.randomUUID().toString();
+        StringBuilder sb=new StringBuilder();
+        for(int i=0;i<con_content.length();i++){
+            if(con_content.charAt(i)!='.')
+                sb.append(con_content.charAt(i));
+            else
+                break;
+        }
+        sb.append(UUID.randomUUID().toString());
+        sb.append(".jpg");
+        con_content=sb.toString();
         File file1=new File(url,con_content);
         try {
             file.transferTo(file1);

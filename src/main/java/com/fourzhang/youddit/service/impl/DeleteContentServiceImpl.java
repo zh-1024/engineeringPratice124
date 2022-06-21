@@ -46,7 +46,7 @@ public class DeleteContentServiceImpl implements DeleteContentService {
         //删除Label
         LambdaQueryWrapper<Label> queryWrapper1=new LambdaQueryWrapper<>();
         for(ContentLabel conlabel:labelids){
-            long id=conlabel.getContentId();
+            long id=conlabel.getLabelId();
             // queryWrapper1.eq(Label::getLabelId,id);
             Label label=labelMapper.selectById(id);
             label.setUseNum(label.getUseNum()-1);
