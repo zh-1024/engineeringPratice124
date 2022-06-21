@@ -65,6 +65,7 @@ public class UserService implements UserDetailsService {
         User user=findUserByName(resetRequest.getUsername());
         String pwd=bCryptPasswordEncoder.encode(resetRequest.getPassword());
         //LambdaUpdateWrapper<User> wq=new LambdaUpdateWrapper<User>();
+        user.setPassword(resetRequest.getNewPassword());
         if(pwd.equals(user.getPassword())){
             userMapper.updateById(user);
             return  true;
