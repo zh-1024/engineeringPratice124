@@ -1,12 +1,17 @@
 package com.fourzhang.youddit.request;
 
-import lombok.Data;
+import lombok.*;
+
 //进行两种评论时传入此参数
-@Data
+@AllArgsConstructor
+@Getter
+@EqualsAndHashCode
+@ToString
 public class CommentRequest {
-    private final String comment_info;
-    private final Long contentId;
-    private final Long contentCommentId;
-    private final Long commentCommentId;
-    private final Integer level;
+    private  String comment_info;
+    private  Long contentId;
+    private  Long contentCommentId;
+    private  Long commentCommentId;
+    private  Integer level;
+    public CommentRequest(){};
 }

@@ -1,17 +1,15 @@
 package com.fourzhang.youddit.request;
 
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.ToString;
+import lombok.*;
 
 @AllArgsConstructor
 @Getter
 @EqualsAndHashCode
 @ToString
+@NoArgsConstructor
 public class SignUpRequest {
-	private final String username;
-	private final String password;
-	private final String email;
-	private final String phone;
+	private String username;
+	private String password;
+	private String email;
+	private String phone;
 }

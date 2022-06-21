@@ -10,7 +10,8 @@ import lombok.ToString;
 @EqualsAndHashCode
 @ToString
 public class ContentCommentRequest {
-	private final Long contentId;
-	private final Integer from;
-	private final Integer num;
+	private Long contentId;
+	private Integer from;
+	private Integer num;
+	public ContentCommentRequest(){};
 }
