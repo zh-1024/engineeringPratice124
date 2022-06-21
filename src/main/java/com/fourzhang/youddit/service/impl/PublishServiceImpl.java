@@ -75,16 +75,15 @@ public class PublishServiceImpl implements PublishService {
         content.setInfoDescribe(info_describe);
         content.setPostTime(time);
         contentMapper.insert(content);
-        List<String> imgurls=cm.getImage_url();
-        for(String imgurl:imgurls){
-            Image image=new Image();
-            image.setImageUrl(imgurl);
-            imageMapper.insert(image);
-            ContentImage cig=new ContentImage();
-            cig.setContentId(content.getContentId());
-            cig.setImageId(image.getImageId());
-            contentImageMapper.insert(cig);
-        }
+        String imgurl=cm.getImage_url();
+        Image image=new Image();
+        image.setImageUrl(imgurl);
+        imageMapper.insert(image);
+        ContentImage cig=new ContentImage();
+        cig.setContentId(content.getContentId());
+        cig.setImageId(image.getImageId());
+        contentImageMapper.insert(cig);
+
         LambdaQueryWrapper<Label> wrapper=new LambdaQueryWrapper<>();
         for(String name:labelnames){
             ContentLabel cl=new ContentLabel();
