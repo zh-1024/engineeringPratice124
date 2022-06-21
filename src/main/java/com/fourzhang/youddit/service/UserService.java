@@ -172,11 +172,6 @@ public class UserService implements UserDetailsService {
         return getResult(res);
     }
 
-    public Result tmpFind(Long id){
-        List<NameWithImageResponse> res = userMapper.tmpFind(id);
-        return ResultTool.success(res);
-    }
-
 
     public Result getFollowersList(Long id, Integer from, Integer num){
 

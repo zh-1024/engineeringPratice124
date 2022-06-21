@@ -14,5 +14,5 @@ public interface ContentService {
     public Result<ContentResponse> getSelfPublishContents(Long currentPage, Long pageSize, Principal principal);
     public Result<ContentResponse> getSelfCollectContents(Long currentPage,Long pageSize,Principal principal);
     public Result getLables();
-    public Result<Content> getContent(Long id);
+    public Result getContent(Long id);
 }

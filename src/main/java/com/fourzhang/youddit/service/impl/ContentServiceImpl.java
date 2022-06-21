@@ -5,18 +5,18 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.fourzhang.youddit.data.Result;
 import com.fourzhang.youddit.data.ResultTool;
-import com.fourzhang.youddit.entity.Content;
+import com.fourzhang.youddit.entity.*;
+import com.fourzhang.youddit.entity.Image;
 import com.fourzhang.youddit.entity.Label;
-import com.fourzhang.youddit.entity.User;
-import com.fourzhang.youddit.mapper.ContentCollectUserMapper;
-import com.fourzhang.youddit.mapper.ContentMapper;
-import com.fourzhang.youddit.mapper.LabelMapper;
+import com.fourzhang.youddit.mapper.*;
 import com.fourzhang.youddit.response.ContentResponse;
+import com.fourzhang.youddit.response.TotalContent;
 import com.fourzhang.youddit.service.ContentService;
 import com.fourzhang.youddit.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.awt.*;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +37,12 @@ public class ContentServiceImpl implements ContentService {
     private ContentCollectUserMapper contentCollectUserMapper;
     @Autowired
     private LabelMapper labelMapper;
+    @Autowired
+    private ImageMapper imageMapper;
+    @Autowired
+    private ContentImageMapper contentImageMapper;
+    @Autowired
+    private ContentLabelMapper contentLabelMapper;
     /**
      * @author zh
      * TODO: 分页查询个人发布的content
@@ -104,9 +110,33 @@ public class ContentServiceImpl implements ContentService {
     }
 
     @Override
-    public Result<Content> getContent(Long id) {
+    public Result getContent(Long id) {
         Content content=contentMapper.selectById(id);
-        return ResultTool.success(content);
+        TotalContent con=new TotalContent();
+        con.setContentId(content.getContentId());
+        con.setCollectnum(content.getCollectNum());
+        con.setInfo_describe(content.getInfoDescribe());
+        con.setLikenum(content.getLikeNum());
+        con.setTime(content.getPostTime());
+        User user=userService.findUserById(content.getUserId());
+        con.setUserName(user.getUsername());
+        LambdaQueryWrapper<ContentImage> wrapper=new LambdaQueryWrapper<ContentImage>();
+        wrapper.eq(ContentImage::getContentId,con.getContentId());
+        ContentImage ci=contentImageMapper.selectOne(wrapper);
+        Long img_id=ci.getImageId();
+        LambdaQueryWrapper<Image> wrapper1=new LambdaQueryWrapper<Image>();
+        Image image=imageMapper.selectById(img_id);
+        con.setImgUrl(image.getImageUrl());
+        LambdaQueryWrapper<ContentLabel> wrapper2=new LambdaQueryWrapper<ContentLabel>();
+        wrapper2.eq(ContentLabel::getContentId,con.getContentId());
+        List<ContentLabel> sets=contentLabelMapper.selectList(wrapper2);
+        LambdaQueryWrapper<Label> wrapper3=new LambdaQueryWrapper<>();
+        List<String> labels=new ArrayList<>();
+        for(ContentLabel ct:sets){
+            labels.add(labelMapper.selectById(ct.getLabelId()).getLabelName());
+        }
+        con.setLabelNames(labels);
+        return ResultTool.success(con);
     }
 
 

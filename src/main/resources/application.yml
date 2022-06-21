@@ -18,5 +18,6 @@ spring:
 
 
 mybatis-plus:
-  mapper-locations: classpath:mapper/*.xmlspring.servlet.multipart.max-request-size=20MB
+  mapper-locations: classpath:mapper/*.xml
+
 

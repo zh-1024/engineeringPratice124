@@ -34,6 +34,7 @@ public class CommentServiceImpl implements CommentService {
         CommentComment commentComment=new CommentComment();
         commentComment.setContentCommentId(commentRequest.getContentCommentId());
         commentComment.setCommentTime(LocalDateTime.now());
+        commentComment.setComment_info(commentRequest.getComment_info());
         LambdaQueryWrapper<User> wrapper=new LambdaQueryWrapper<>();
         wrapper.select(User::getId);
         wrapper.eq(User::getUsername,usrname);

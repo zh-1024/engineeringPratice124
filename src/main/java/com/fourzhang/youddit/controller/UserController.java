@@ -78,14 +78,14 @@ public class UserController {
 //        return userService.tmpFind(user.getId());
     }
 
-//    @PostMapping(path = "/api/user/visit/following/{username}")
-//    public Result getOtherUserFolloweringList(@RequestBody PageRange range ,
-//                                              @PathVariable(name = "username") String username){
-//        User user = userService.findUserByName(username);
-//        if (user == null) { return ResultTool.dataFail(ResultCode.COMMON_FAIL); }
-//
-//        return userService.getFollowingList(user.getId(), range.getFrom(), range.getNum());
-//    }
+   @PostMapping(path = "/api/user/visit/following/{username}")
+    public Result getOtherUserFolloweringList(@RequestBody PageRange range ,
+                                              @PathVariable(name = "username") String username){
+        User user = userService.findUserByName(username);
+        if (user == null) { return ResultTool.dataFail(ResultCode.COMMON_FAIL); }
+
+        return userService.getFollowingList(user.getId(), range.getFrom(), range.getNum());
+    }
 
     @PostMapping(path = "/api/user/followers")
     public Result getFollowersList(@RequestBody PageRange range ,Principal principal){
