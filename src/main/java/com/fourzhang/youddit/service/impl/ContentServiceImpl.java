@@ -103,5 +103,11 @@ public class ContentServiceImpl implements ContentService {
         return ResultTool.success(labels);
     }
 
+    @Override
+    public Result<Content> getContent(Long id) {
+        Content content=contentMapper.selectById(id);
+        return ResultTool.success(content);
+    }
+
 
 }

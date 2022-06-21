@@ -165,14 +165,21 @@ public class UserService implements UserDetailsService {
     }
 
     public Result getFollowingList(Long id, Integer from, Integer num){
+        System.out.println(from);
+        System.out.println(num);
         Page<NameWithImageResponse> page = new Page<>(from, num);
         Page<NameWithImageResponse> res = userMapper.findFollowingList(id, page);
-
         return getResult(res);
+    }
+
+    public Result tmpFind(Long id){
+        List<NameWithImageResponse> res = userMapper.tmpFind(id);
+        return ResultTool.success(res);
     }
 
 
     public Result getFollowersList(Long id, Integer from, Integer num){
+
         Page<NameWithImageResponse> page = new Page<>(from, num);
         Page<NameWithImageResponse> res = userMapper.findFollowersList(id, page);
 

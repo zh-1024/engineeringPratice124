@@ -51,6 +51,7 @@ public class ContentController {
         }
         return ResultTool.success(url);
     }
+
     //发布内容，包含发布得相关信息以及图片
     @PostMapping("/publish")
     public Result publish(@RequestBody ContentParam contentParam, Principal principal){
@@ -74,7 +75,10 @@ public class ContentController {
         //return ResultTool.success("localhost:8080"+System.getProperty("file.separator")+con_content);
         //return ResultTool.success(con_content);
     }
-
+    @GetMapping("/getContent")
+    public Result getContentById(@RequestParam("id")Long id){
+        return contentService.getContent(id);
+    }
     @PostMapping("/delete/{content_id}")
     public Result delete(@PathVariable long content_id){
         return deleteContentService.deletePub(content_id);

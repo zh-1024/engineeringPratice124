@@ -13,4 +13,10 @@
         select username, avatar from user where id in
                                  (select user1_id from follow where user2_id = #{id})
     </select>
+
+    <select id="tmpFind"
+            resultType="com.fourzhang.youddit.response.NameWithImageResponse">
+        select username, avatar from user where id in
+                                                (select user1_id from follow where user2_id = #{id})
+    </select>
 </mapper>

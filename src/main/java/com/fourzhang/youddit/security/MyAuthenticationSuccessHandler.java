@@ -3,6 +3,7 @@ package com.fourzhang.youddit.security;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -22,6 +23,10 @@ public class MyAuthenticationSuccessHandler implements AuthenticationSuccessHand
 			Authentication authentication) throws IOException, ServletException {
 		Result<Integer> result = ResultTool.success();
 		response.setContentType("text/json;charset=utf-8");
+
+		System.out.println("somebody trying login in");
+
+		response.addCookie(new Cookie("SameSite", "None"));
 		response.getWriter().write(JSON.toJSONString(result));
 	}
 }

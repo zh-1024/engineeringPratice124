@@ -75,6 +75,7 @@ public class UserController {
         if (user == null) { return ResultTool.dataFail(ResultCode.COMMON_FAIL); }
 
         return userService.getFollowingList(user.getId(), range.getFrom(), range.getNum());
+//        return userService.tmpFind(user.getId());
     }
 
 //    @PostMapping(path = "/api/user/visit/following/{username}")
