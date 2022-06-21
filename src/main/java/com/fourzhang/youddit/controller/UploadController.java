@@ -27,7 +27,7 @@ public class UploadController {
         }
         return ResultTool.fail();*/
       //  String url=this.getClass().getClassLoader().getResource("static").getFile();
-        String url=System.getProperty("user.dir")+System.getProperty("file.separator")+"src\\main\\resources\\static";
+        String url=System.getProperty("user.dir")+System.getProperty("file.separator")+"src\\main\\resources\\static\\images";
 
         System.out.println(url);
         String con_content=file.getOriginalFilename();
