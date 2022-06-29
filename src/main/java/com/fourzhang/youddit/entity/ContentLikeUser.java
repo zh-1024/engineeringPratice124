@@ -8,14 +8,6 @@ import lombok.*;
 
 import java.io.Serializable;
 
-/**
- * <p>
- * 
- * </p>
- *
- * @author zh
- * @since 2022-01-28
- */
 @Getter
 @Setter
 @TableName("content_like_user")

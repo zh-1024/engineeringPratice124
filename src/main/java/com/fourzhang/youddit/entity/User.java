@@ -25,7 +25,7 @@ import lombok.Data;
 @AllArgsConstructor
 @NoArgsConstructor
 public class User implements UserDetails {
-    @TableId(type=IdType.ASSIGN_ID)
+    @TableId(type=IdType.AUTO)
     private Long id;
     private String username;
     private String password;

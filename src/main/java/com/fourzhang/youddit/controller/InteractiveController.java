@@ -9,12 +9,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 
-/**
- * TODO:交互有关接口
- * @author zh
- * @version 1.0
- * @date 2022/3/6 000621:52
- */
 @RestController
 @RequestMapping("api/social")
 public class InteractiveController {
@@ -22,48 +16,34 @@ public class InteractiveController {
     InteractiveServiceImpl interactiveService;
     @Autowired
     UserService userServicel;
-    @PostMapping("/likeContent")
-    public Result likeContent(@RequestParam(required = true,value = "contentId")long contentId,
-                              Principal principal){
-        User userByName = userServicel.findUserByName(principal.getName());
-        return interactiveService.likeContent(contentId, userByName.getId());
-    }
-    @PostMapping("/cancelLikeContent")
-    public Result cancelLikeContent(@RequestParam(required = true,value = "contentId")long contentId,
-                                     Principal principal){
-        User userByName = userServicel.findUserByName(principal.getName());
-        return interactiveService.cancelLikeContent(contentId, userByName.getId());
+
+    @GetMapping("/togglelike")
+    public Result togglelike(@RequestParam(required = true) long contentId, Principal principal) {
+        User user = userServicel.findUserByName(principal.getName());
+        return interactiveService.togglelike(contentId, user.getId());
     }
 
-    @GetMapping("/contentIsLiked")
-    public Result<Boolean> contentIsLiked(@RequestParam(required = true,value = "contentId")long contentId,
-                                   Principal principal){
-        User userByName = userServicel.findUserByName(principal.getName());
-        return interactiveService.contentIsLiked(contentId, userByName.getId());
-    }
-    @PostMapping("/collectContent")
-    public Result collectContent(@RequestParam(required = true,value = "contentId")long contentId,
-                                 Principal principal){
-        User userByName = userServicel.findUserByName(principal.getName());
-        return interactiveService.collectContent(contentId, userByName.getId());
-    }
-    @PostMapping("/cancelCollectContent")
-    public Result cancelCollectContent(@RequestParam(required = true,value = "contentId")long contentId,
-                                      Principal principal){
-        User userByName = userServicel.findUserByName(principal.getName());
-        return interactiveService.cancelCollectContent(contentId, userByName.getId());
+    @GetMapping("/isliked")
+    public Result isliked(@RequestParam(required = true) long contentId, Principal principal) {
+        User user = userServicel.findUserByName(principal.getName());
+        return interactiveService.isLiked(contentId, user.getId());
     }
 
-    @GetMapping("/contentIsCollect")
-    public Result<Boolean> contentIsCollect(@RequestParam(required = true,value = "contentId")long contentId,
-                                          Principal principal){
-        User userByName = userServicel.findUserByName(principal.getName());
-        return interactiveService.contentIsCollect(contentId, userByName.getId());
+    @GetMapping("/togglecollect")
+    public Result togglecollect(@RequestParam(required = true) long contentId, Principal principal) {
+        User user = userServicel.findUserByName(principal.getName());
+        return interactiveService.toggleCollect(contentId, user.getId());
     }
+
+    @GetMapping("/iscollected")
+    public Result iscollected(@RequestParam(required = true) long contentId, Principal principal) {
+        User user = userServicel.findUserByName(principal.getName());
+        return interactiveService.isCollected(contentId, user.getId());
+    }
+
     @PostMapping("/addView")
-    public Result cancelCollectContent(@RequestParam(required = true,value = "contentId")long contentId){
+    public Result cancelCollectContent(@RequestParam(required = true, value = "contentId") long contentId) {
         return interactiveService.addView(contentId);
     }
-
 
 }

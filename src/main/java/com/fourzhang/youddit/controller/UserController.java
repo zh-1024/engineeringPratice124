@@ -10,12 +10,11 @@ import com.fourzhang.youddit.request.SignUpRequest;
 import com.fourzhang.youddit.request.UserInformationRequest;
 import com.fourzhang.youddit.service.UserService;
 
-import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
-
+import java.util.Random;
 
 @RestController
 public class UserController {
@@ -30,85 +29,108 @@ public class UserController {
             user.setPassword(request.getPassword());
             user.setEmail(request.getEmail());
             user.setPhone(request.getPhone());
+            // 初始随机头像
+            Random random = new Random();
+            int x = random.nextInt(5);
+            user.setAvatar("/avatars/" + x + ".png");
+            // 初始简介
+            user.setProfile("This is description.");
+
             userService.signUp(user);
             return ResultTool.success();
         } catch (Exception e) {
             return ResultTool.fail(ResultCode.USER_ACCOUNT_ALREADY_EXIST);
         }
     }
+
     @PostMapping(path = "/api/user/reset")
-    public Result reset(@RequestBody ResetRequest resetRequest){
-        if(userService.reset(resetRequest))
+    public Result reset(@RequestBody ResetRequest resetRequest) {
+        if (userService.reset(resetRequest))
             return ResultTool.success();
         else
             return ResultTool.fail(ResultCode.USER_CREDENTIALS_ERROR);
     }
-    //获取用户的个人主页
+
+    // 获取当前用户名
+    @GetMapping(path = "/api/user/whoiam")
+    public Result getMyName(Principal principal) {
+        return ResultTool.success(principal.getName());
+    }
+
+    // 获取用户的个人主页
     @GetMapping(path = "/api/user/homepage")
-    public Result getUserHomePage(Principal principal){
+    public Result getUserHomePage(Principal principal) {
         return userService.getUserHomePage(principal);
     }
 
-    //获取其他用户的个人主页
-    @GetMapping(path = "/api/user/visit/homepage/{username}")
-    public Result getOtherUserHomePage(@PathVariable(name = "username") String username){
+    // 获取其他用户的个人主页
+    @GetMapping(path = "/api/user/otherpage")
+    public Result getOtherUserHomePage(@RequestParam(required = true) String username) {
         return userService.getOtherUserHomePage(username);
     }
 
-    //获取用户的个人信息修改页
+    // 获取用户的个人信息修改页
     @GetMapping(path = "/api/user/information")
-    public Result getUserInformationPage(Principal principal){
+    public Result getUserInformationPage(Principal principal) {
         return userService.getUserInformationPage(principal);
     }
 
-    //修改个人信息修改页，暂不提供修改username的功能
+    // 修改个人信息修改页，暂不提供修改username的功能
     @PostMapping(path = "/api/user/information/edit")
     public Result changeUserInformationPage(@RequestBody UserInformationRequest userInformationRequest,
-            Principal principal){
+            Principal principal) {
         return userService.changeUserInformation(userInformationRequest, principal);
     }
 
     @PostMapping(path = "/api/user/following")
-    public Result getFolloweringList(@RequestBody PageRange range ,
-                                            Principal principal){
+    public Result getFolloweringList(@RequestBody PageRange range,
+            Principal principal) {
         User user = userService.findUserByName(principal.getName());
-        if (user == null) { return ResultTool.dataFail(ResultCode.COMMON_FAIL); }
+        if (user == null) {
+            return ResultTool.dataFail(ResultCode.COMMON_FAIL);
+        }
 
         return userService.getFollowingList(user.getId(), range.getFrom(), range.getNum());
-//        return userService.tmpFind(user.getId());
     }
 
-   @PostMapping(path = "/api/user/visit/following/{username}")
-    public Result getOtherUserFolloweringList(@RequestBody PageRange range ,
-                                              @PathVariable(name = "username") String username){
+    @PostMapping(path = "/api/user/visit/following/{username}")
+    public Result getOtherUserFolloweringList(@RequestBody PageRange range,
+            @PathVariable(name = "username") String username) {
         User user = userService.findUserByName(username);
-        if (user == null) { return ResultTool.dataFail(ResultCode.COMMON_FAIL); }
+        if (user == null) {
+            return ResultTool.dataFail(ResultCode.COMMON_FAIL);
+        }
 
         return userService.getFollowingList(user.getId(), range.getFrom(), range.getNum());
     }
 
     @PostMapping(path = "/api/user/followers")
-    public Result getFollowersList(@RequestBody PageRange range ,Principal principal){
+    public Result getFollowersList(@RequestBody PageRange range, Principal principal) {
         User user = userService.findUserByName(principal.getName());
-        if (user == null) { return ResultTool.dataFail(ResultCode.COMMON_FAIL); }
+        if (user == null) {
+            return ResultTool.dataFail(ResultCode.COMMON_FAIL);
+        }
         return userService.getFollowersList(user.getId(),
                 range.getFrom(),
                 range.getNum());
     }
 
     @PostMapping(path = "/api/user/visit/followers/{username}")
-    public Result getOtherUserFollowersList(@RequestBody PageRange range ,
-                                            @PathVariable(name = "username") String username){
+    public Result getOtherUserFollowersList(@RequestBody PageRange range,
+            @PathVariable(name = "username") String username) {
         User user = userService.findUserByName(username);
-        if (user == null) { return ResultTool.dataFail(ResultCode.COMMON_FAIL); }
+        if (user == null) {
+            return ResultTool.dataFail(ResultCode.COMMON_FAIL);
+        }
         return userService.getFollowersList(user.getId(),
                 range.getFrom(),
                 range.getNum());
     }
+
     @GetMapping("/api/findUserById")
-    public Result findUserById(@RequestParam("id")Long id){
-        User user=userService.findUserById(id);
-        if(user!=null)
+    public Result findUserById(@RequestParam("id") Long id) {
+        User user = userService.findUserById(id);
+        if (user != null)
             return ResultTool.success(user.getUsername());
         else
             return ResultTool.fail();

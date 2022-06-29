@@ -86,31 +86,31 @@ public class RecommendContentServiceImpl implements RecommendContentService {
         return contentResponseResult;
     }
 
-    /**
-     * @author zh
-     * TODO: 根据标签使用量进行排序，分页查询
-     * @param currentPage
-     * @param pageSize
-     * @date 2022/3/6 0006 17:12
-     * @return com.fourzhang.youddit.data.Result<com.fourzhang.youddit.response.LabelResponse>
-     */
-    @Override
-    public Result<LabelResponse> getLabels(Long currentPage, Long pageSize) {
-        QueryWrapper<Label> queryWrapper=new QueryWrapper<>();
-        queryWrapper.orderByDesc("use_num");
-        Page<Label> page=new Page<>(currentPage,pageSize);
-        Page<Label> page1 = labelMapper.selectPage(page, queryWrapper);
+    // /**
+    //  * @author zh
+    //  * TODO: 根据标签使用量进行排序，分页查询
+    //  * @param currentPage
+    //  * @param pageSize
+    //  * @date 2022/3/6 0006 17:12
+    //  * @return com.fourzhang.youddit.data.Result<com.fourzhang.youddit.response.LabelResponse>
+    //  */
+    // @Override
+    // public Result<LabelResponse> getLabels(Long currentPage, Long pageSize) {
+    //     QueryWrapper<Label> queryWrapper=new QueryWrapper<>();
+    //     queryWrapper.orderByDesc("use_num");
+    //     Page<Label> page=new Page<>(currentPage,pageSize);
+    //     Page<Label> page1 = labelMapper.selectPage(page, queryWrapper);
 
-        LabelResponse labelResponse = new LabelResponse(
-                page1.getPages(),
-                page1.getTotal(),
-                page1.hasNext(),
-                page1.hasPrevious(),
-                page1.getRecords()
-                );
-        Result<LabelResponse> responseResult=new Result<LabelResponse>(labelResponse);
-        return responseResult;
-    }
+    //     LabelResponse labelResponse = new LabelResponse(
+    //             page1.getPages(),
+    //             page1.getTotal(),
+    //             page1.hasNext(),
+    //             page1.hasPrevious(),
+    //             page1.getRecords()
+    //             );
+    //     Result<LabelResponse> responseResult=new Result<LabelResponse>(labelResponse);
+    //     return responseResult;
+    // }
 
     /**
      * @author zh

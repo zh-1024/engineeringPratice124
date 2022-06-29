@@ -10,14 +10,6 @@ import lombok.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-/**
- * <p>
- * 
- * </p>
- *
- * @author zh
- * @since 2022-01-28
- */
 @Getter
 @Setter
 @TableName("comment_comment")
@@ -40,6 +32,6 @@ public class CommentComment implements Serializable {
     private LocalDateTime commentTime;
 
     private Integer level;
-    private String comment_info;
+    private String commentInfo;
 
 }

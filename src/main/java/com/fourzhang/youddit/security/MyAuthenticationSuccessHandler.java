@@ -23,10 +23,6 @@ public class MyAuthenticationSuccessHandler implements AuthenticationSuccessHand
 			Authentication authentication) throws IOException, ServletException {
 		Result<Integer> result = ResultTool.success();
 		response.setContentType("text/json;charset=utf-8");
-
-		System.out.println("somebody trying login in");
-
-		response.addCookie(new Cookie("SameSite", "None"));
 		response.getWriter().write(JSON.toJSONString(result));
 	}
 }
