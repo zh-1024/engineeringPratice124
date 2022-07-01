@@ -1,7 +1,5 @@
 package com.fourzhang.youddit.service.impl;
 
-import java.util.ArrayList;
-
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.fourzhang.youddit.entity.Content;
 import com.fourzhang.youddit.mapper.ContentMapper;

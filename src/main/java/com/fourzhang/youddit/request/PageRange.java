@@ -10,7 +10,7 @@ import lombok.ToString;
 @EqualsAndHashCode
 @ToString
 public class PageRange {
-    private Integer from;
-    private Integer num;
+    private int from;
+    private int num;
     public PageRange(){};
 }

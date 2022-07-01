@@ -20,6 +20,7 @@ public class ContentController {
     private DeleteContentService deleteContentService;
     @Autowired
     private ContentServiceImpl contentService;
+
     // 发布内容，包含发布得相关信息以及图片
     @PostMapping("/publish")
     public Result publish(@RequestBody ContentParam contentParam, Principal principal) {
