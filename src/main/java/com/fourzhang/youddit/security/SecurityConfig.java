@@ -17,10 +17,9 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-
 @Configuration
 @EnableWebSecurity
-public class SecurityConfig extends WebSecurityConfigurerAdapter{
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	public BCryptPasswordEncoder bCryptPasswordEncoder;
 	@Autowired
@@ -34,24 +33,23 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	@Autowired
 	public MyLogoutSuccessHandler myLogoutSuccessHandler;
 
-
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http
-			.cors()
+	@Override
+	protected void configure(HttpSecurity http) throws Exception {
+		http
+				.cors()
 				.and()
-			.csrf().disable()
-			.authorizeRequests()
+				.csrf().disable()
+				.authorizeRequests()
 				.antMatchers("/api/user/signup").permitAll()
 				.antMatchers("/api/user/reset").permitAll()
 				.antMatchers("/api/user/signin").permitAll()
 				.antMatchers("/test").permitAll() // for
 				.antMatchers("/images/*").permitAll()
 				.antMatchers("/avatars/*").permitAll()
-				//.antMatchers("/**").permitAll()
+				// .antMatchers("/**").permitAll()
 				.anyRequest().authenticated()
 				.and()
-			.formLogin()
+				.formLogin()
 				.permitAll()
 				.successHandler(myAuthenticationSuccessHandler)
 				.failureHandler(myAuthenticationFailureHandler)
@@ -59,22 +57,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 				.usernameParameter("username")
 				.passwordParameter("password")
 				.and()
-			.logout()
+				.logout()
 				.permitAll()
 				.logoutUrl("/api/user/logout")
 				.logoutSuccessHandler(myLogoutSuccessHandler)
 				.deleteCookies("JSESSIONID")
 				.and()
-			.exceptionHandling()
+				.exceptionHandling()
 				.authenticationEntryPoint(myAuthenticationEntryPoint);
-    }
+	}
 
-
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.authenticationProvider(authenticationProvider());
-    }
-
+	@Override
+	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+		auth.authenticationProvider(authenticationProvider());
+	}
 
 	@Bean
 	public DaoAuthenticationProvider authenticationProvider() {
@@ -84,7 +80,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		return provider;
 	}
 
-    
 	@Bean
 	CorsConfigurationSource corsConfigurationSource() {
 		CorsConfiguration configuration = new CorsConfiguration();
@@ -96,6 +91,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		source.registerCorsConfiguration("/**", configuration);
 		return source;
 	}
-
 
 }

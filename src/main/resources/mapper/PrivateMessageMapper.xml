@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fourzhang.youddit.mapper.PrivateMessageMapper">
+    <select id="loadMessage" resultType="com.fourzhang.youddit.response.PrivateMessageResponse">
+        select sender_id, message, send_time from private_message
+            where (sender_id=#{id1} and receive_id=#{id2}) or 
+                    (sender_id=#{id2} and receive_id=#{id1})
+    </select>
+</mapper>

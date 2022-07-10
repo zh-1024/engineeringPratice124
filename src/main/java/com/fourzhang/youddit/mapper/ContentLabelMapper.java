@@ -11,7 +11,6 @@ import org.apache.ibatis.annotations.Param;
 public interface ContentLabelMapper extends BaseMapper<ContentLabel> {
     /**
      * @author zh
-     * TODO: 根据标签id查询符合此标签的内容列表，按浏览量、点赞量、收藏量降序输出
      * @param page 分页对象
      * @param labelId 标签id
      * @date 2022/3/6 0006 15:36

@@ -135,4 +135,13 @@ public class UserController {
         else
             return ResultTool.fail();
     }
+
+    @GetMapping("/api/getIdByUsername")
+    public Result getIdByUsername(@RequestParam("username") String username) {
+        User user = userService.findUserByName(username);
+        if (user != null)
+            return ResultTool.success(user.getId());
+        else
+            return ResultTool.fail();
+    }
 }

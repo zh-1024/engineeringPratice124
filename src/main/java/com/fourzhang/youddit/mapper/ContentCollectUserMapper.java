@@ -11,7 +11,6 @@ import org.apache.ibatis.annotations.Param;
 public interface ContentCollectUserMapper extends BaseMapper<ContentCollectUser> {
     /**
      * @author zh
-     * TODO: 根据用户id查询此用户收藏的content
      * @param page
      * @param UserId
      * @date 2022/3/6 0006 19:37

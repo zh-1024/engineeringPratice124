@@ -11,5 +11,4 @@ import org.apache.ibatis.annotations.Param;
 public interface UserMapper extends BaseMapper<User> {
     Page<NameWithImageResponse> findFollowingList(@Param("id")Long id, @Param("page") Page<NameWithImageResponse> page);
     Page<NameWithImageResponse> findFollowersList(Long id, Page<NameWithImageResponse> page);
-//    List<NameWithImageResponse> tmpFind(Long id);
 }

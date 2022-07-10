@@ -10,5 +10,7 @@ import lombok.*;
 public class PrivateMessageRequest {
 	private Long receiveId;
 	private String message;
-	public PrivateMessageRequest(){};
+
+	public PrivateMessageRequest() {
+	};
 }

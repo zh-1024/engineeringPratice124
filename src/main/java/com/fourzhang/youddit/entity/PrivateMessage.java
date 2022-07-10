@@ -38,6 +38,4 @@ public class PrivateMessage implements Serializable {
     private String message;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime sendTime;
-
-
 }

@@ -8,5 +8,7 @@ import com.fourzhang.youddit.response.PrivateMessageResponse;
 public interface PrivateMessageService {
     boolean saveMessage(PrivateMessage message);
 
-    ArrayList<PrivateMessageResponse> loadMessage(Long id);
+    ArrayList<PrivateMessageResponse> loadMessages(Long id1, Long id2);
+
+    ArrayList<Long> loadContacts(Long id);
 }

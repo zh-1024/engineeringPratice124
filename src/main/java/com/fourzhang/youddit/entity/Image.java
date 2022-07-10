@@ -28,5 +28,4 @@ public class Image implements Serializable {
     private Long imageId;
     private String imageUrl;
 
-
 }

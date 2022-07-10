@@ -8,10 +8,12 @@ import lombok.*;
 @EqualsAndHashCode
 @ToString
 public class CommentRequest {
-    private  String comment_info;
-    private  Long contentId;
-    private  Long contentCommentId;
-    private  Long commentCommentId;
-    private  Integer level;
-    public CommentRequest(){};
+    private String comment_info;
+    private Long contentId;
+    private Long contentCommentId;
+    private Long commentCommentId;
+    private Integer level;
+
+    public CommentRequest() {
+    };
 }
