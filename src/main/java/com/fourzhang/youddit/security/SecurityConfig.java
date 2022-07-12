@@ -40,13 +40,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.and()
 				.csrf().disable()
 				.authorizeRequests()
+				.antMatchers("/").permitAll()
 				.antMatchers("/api/user/signup").permitAll()
 				.antMatchers("/api/user/reset").permitAll()
 				.antMatchers("/api/user/signin").permitAll()
 				.antMatchers("/test").permitAll() // for
+				// image resources
 				.antMatchers("/images/*").permitAll()
 				.antMatchers("/avatars/*").permitAll()
-				// .antMatchers("/**").permitAll()
+				// frontend static files
+				.antMatchers("/*.css").permitAll()
+				.antMatchers("/*.js").permitAll()
+
 				.anyRequest().authenticated()
 				.and()
 				.formLogin()

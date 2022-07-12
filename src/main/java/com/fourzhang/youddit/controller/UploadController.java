@@ -16,7 +16,7 @@ public class UploadController {
     @PostMapping
     public Result upload(@RequestPart("image") MultipartFile file) throws IOException {
         String url = System.getProperty("user.dir") + System.getProperty("file.separator")
-                + "src/main/resources/static/images";
+                + "src/main/resources/files/images";
 
         System.out.println("Youtirsin: " + url);
         String con_content = file.getOriginalFilename();

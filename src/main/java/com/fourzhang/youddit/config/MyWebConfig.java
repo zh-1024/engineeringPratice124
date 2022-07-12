@@ -11,8 +11,8 @@ import java.util.List;
 public class MyWebConfig extends WebMvcConfigurationSupport {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        String imgPath = System.getProperty("user.dir") + "/src/main/resources/static/images/";
-        String avatarPath = System.getProperty("user.dir") + "/src/main/resources/static/avatars/";
+        String imgPath = System.getProperty("user.dir") + "/src/main/resources/files/images/";
+        String avatarPath = System.getProperty("user.dir") + "/src/main/resources/files/avatars/";
 
         registry.addResourceHandler("/images/**")    // virtual path
                 .addResourceLocations("file:" + imgPath);
