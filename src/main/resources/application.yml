@@ -1,14 +1,26 @@
 spring:
-  datasource:
-    username: root
-    password: 123456
-    url: jdbc:mysql://${MYSQL_HOST:localhost}:3306/youddit
-    driver-class-name: com.mysql.cj.jdbc.Driver
+  datasource
+  # database username
+  # 数据库用户名
+  username: root
+  # database password
+  # 数据库密码
+  password: 123456
+  # change localhost to the address of the database
+  # 将localhost更改为数据库服务地址
+  url: jdbc:mysql://${MYSQL_HOST:localhost}:3306/youddit
+  driver-class-name: com.mysql.cj.jdbc.Driver
   rabbitmq:
+    # RabbitMQ address
+    # RabbitMQ服务地址
     host: 127.0.0.1
     port: 5672
     virtual-host: youddit
+    # RabbitMQ username
+    # RabbitMQ用户名
     username: guest
+    # RabbitMQ password
+    # RabbitMQ密码
     password: guest
   servlet:
     multipart:
@@ -24,4 +36,3 @@ management:
     web:
       exposure:
         include: refresh
-
